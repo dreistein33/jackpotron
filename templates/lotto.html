@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <title>Lottery</title>
+<style>
+
+
+  body {
+    background-color: black;
+      margin: 0;
+      padding: 0;
+      z-index: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      justify-content: center;
+  }
+
+
+  .master {
+    background-color: none;
+    z-index: 1;
+    justify-content: center;
+    overflow: hidden;
+    align-content: center;
+    border: 5px solid pink;
+  }
+
+
+  #lottery {
+    border: 3px solid blue;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #lottery-number {
+    width: 0px;
+    height: 0px;
+    background-color: gold;
+    border-radius: 3px;
+    border: 3px solid black;
+
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #lottery-number p {
+    text-align: center;
+    font-size: 50px;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  #lottery-status {
+    align-items: center;
+    justify-content: center;
+    width: 231px;
+    height: 231px;
+    border: 3px solid black;
+    border-radius: 3px;
+    margin: 10px;
+    background-color: {% if lottery.status == 'started' %}green{% elif lottery.status == 'ended' %}red{% else %}white{% endif %};
+  }
+
+  #lottery-status p {
+    text-align: center;
+  }
+
+  #winner-container {
+    border: 3px solid white;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    width: 100vh;
+  }
+
+  #winner-details {
+    justify-content: left;
+  }
+
+  #winner {
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background-color: {% if lottery.winner %}lightblue{% else %}grey{% endif %};
+    transition: background-color 0.5s;
+  }
+
+  #winner p {
+    text-align: center;
+  }
+
+  #winner a {
+    color: {% if lottery.winner %}blue{% else %}gray{% endif %};
+  }
+
+  #participant-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  #participant-details p {
+    margin: 0;
+  }
+
+  #image {
+    filter: pixelate(10px); /* ustawienie efektu pixelizacji */
+    transition: all 2s ease-out; /* ustawienie czasu trwania i przejścia */
+    height: auto;
+    weight: auto;
+    transform: scale(1)
+  }
+
+  image:hover {
+  filter: none; /* usunięcie efektu pixelizacji */
+
+}
+
+  #pixel-container {
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+  }
+
+  .pixelated {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+
+
+</style>
+<div class="master">
+    <div id="lottery">
+      <div id="lottery-status">
+      <p>{{lottery.status}}</p>
+      </div>
+      <div id="pixel-container">
+        <img id="image" src="data:image/png;base64,{{qr}}" class="pixelated"/>
+        </div>
+          <div id="lottery-number">
+          <p>{{ lottery.id | replace("id", "") }}</p>
+          </div>
+    </div>
+        <div id="winner-container">
+          <div id="winner-details">
+            <div id="winner">
+              <p>Winner: {{ lottery.winner }} {% if lottery.winner %}<a href="https://shasta.tronscan.org/#/address/{{ lottery.winner }}" target="_blank">SCAN</a>{% endif %}</p>
+            </div>
+          </div>
+          <div id="participant-container">
+            
+            <div id="participant-details">
+              <p></p>
+            </div>
+          
+          </div>
+        </div>
+    </div>
+</div>
+ <script>
+  /* // uzyskanie kontenera i obrazka
+  $(document).ready(function() {
+    var img = $("#image");
+
+    var doc = document.getElementById("image");
+
+    // obliczenie wymiarów pikseli
+    var width = img.width();
+    var height = img.height();
+
+    // dodanie pojedynczych pikseli do kontenera
+    for (var i = 0; i < width * height; i++) {
+      var pixel = $("<div class='pixel'></div>");
+      var pixelSize = 1;
+      pixel.css({
+        "position": "absolute",
+        "width": pixelSize + "px",
+        "height": pixelSize + "px",
+        "background-color": "green",
+        "z-index": 4,
+        "top": Math.floor(i / width) * pixelSize + "px",
+        "left": (i % width) * pixelSize + "px"
+      });
+        $("#pixel-container").append(pixel);
+    }
+    var pix = $(".pixel");
+    $(".pixel").animate({"opacity": "0%"}, 5000) 
+  });
+    // ustawienie przezroczystości pikseli w celu ujawnienia obrazka */
+</script> 
+
+<script>
+  var pix = $(".pixel");
+  console.log(pix);
+</script>
+
+<script>
+ // Wyswietl sume ilosci przesalanej na loterie
+  var totals = {};
+  {% for tx in txs%}
+    var x = {{tx|tojson()}};
+    if (x.sender in totals) {
+        totals[x.sender] += x.amount;
+    } else {
+        totals[x.sender] = x.amount;
+    }
+  {% endfor %}
+  const participantDiv = document.getElementById("participant-details");
+  const prize = {{lottery.prize}};
+  for (const key in totals) {
+      const amount = totals[key];
+      const dictRow = document.createElement("p");
+      const probability = (amount / prize) * 100
+      dictRow.innerHTML = `<p>User: ${key}, Amount: ${amount}, Probability: ${probability.toFixed(2)}%</p>`;
+      participantDiv.appendChild(dictRow);
+  } 
+
+</script>
+
+<script>
+  // Animacja pokazania lottery.id
+  $(document).ready(function() {
+    $("#lottery-number").animate(
+      {"width": "231px",
+      "height": "231px"}, 2000)
+  })
+</script>

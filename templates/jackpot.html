@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="refresh" content="600">
+  <style type="text/css">
+
+    body {
+      z-index: 0;
+      justify-content:center;
+      content-align:center;
+      overflow: hidden;
+      background-color: black;
+
+    }
+      .dollar {
+        color: green;
+        font-size: 20px;
+        position: absolute;
+        animation: fall 2s linear forwards;
+        z-index: 1;
+      }
+
+      .bar {
+        color: green;
+        font-size: 20px;
+        position: absolute;
+        animation: fall 2s linear forwards;
+        z-index: 1;
+      }
+
+
+
+
+    @keyframes fall {
+        0% {
+            transform: translateY(-100px);
+        }
+        95% {
+            transform: translateY(100vh - 100px);
+        }
+        100% {
+            transform: translateY(120vh);
+            color:none
+          }
+    }
+
+    #y2 {
+      left:70%;
+      position: fixed;
+      width:1px;
+      height:100%;
+      z-index:10;
+      background-color: blue;
+    }
+    #y1 {
+      left:30%;
+      position: fixed;
+      width:1px;
+      height:100%;
+      z-index:10;
+      background-color: blue;
+    }
+    #y {
+      left:50%;
+      position: fixed;
+      width:1px;
+      height:100%;
+      z-index:10;
+      background-color: blue;
+    }
+    #x {
+      top:50%;
+      position:fixed;
+      height:1px;
+      width:100%;
+      z-index:10;
+      background-color: red;
+    }
+    #xup {
+      top:10%;
+      position:fixed;
+      height:1px;
+      width:100%;
+      z-index:10;
+      background-color: red;
+    }
+    #xdown {
+      top:80%;
+      position:fixed;
+      height:1px;
+      width:100%;
+      z-index:10;
+      background-color: red;
+    }
+
+
+
+
+    #sin {
+      border:10px solid gold;
+      border-radius: 50%;
+      z-index: 5;
+      color: red;
+      font-size: 60px;
+      position: absolute;
+      left: 47%;
+      top: 47%;
+    }
+
+
+    #users {
+      position: absolute;
+      background-color:gold;
+      font-size: 32px;
+
+    }
+
+
+
+    #user-container {
+
+
+
+    }
+    #abstract {
+      z-index:1;
+      animation: colorx 1s linear infinite;
+      background-color: blue;
+      border-radius: 50%;
+      top: 12.6%;
+      left: 33.75%;
+      width: 600px;
+      height: 600px;
+      justify-content: center;
+      position: absolute;
+    }
+
+
+
+
+    #line-container {
+      z-index:4;
+      animation: spin 30s ease infinite;
+      background-color: white;
+
+      border-radius: 40%;
+
+      top: 30%;
+      left: 38%;
+      width: 400px;
+      height: 400px;
+      position: absolute;
+    }
+
+
+
+    .line {
+      z-index:4;
+      padding: 1px;
+      clip-path: polygon(0% 100%, 100% 70%, 100% 0, 0% 0);
+      position: fixed;
+      background-color: white;
+      border-radius: 45%;
+      height: 5px;
+      width: 111px;
+
+
+  }
+
+@keyframes ueue { 
+    0% {
+      background-color: blue;
+    }
+    50% {
+      background-color: red;
+    }
+  
+    100% {
+      background-color: green;
+      
+    }
+}
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+
+}
+
+
+
+@keyframes zeze { 
+  0% {transform: rotate(0deg)}
+  20% {transform: rotate(90deg)}
+  25% {transform: rotate(90deg)}
+  45% {transform: rotate(180deg)}
+  50% {transform: rotate(180deg)}
+  70% {transform: rotate(270deg)}
+  75% {transform: rotate(270deg)}
+  95% {transform: rotate(360deg)}
+  100% {transform: rotate(360deg)}
+
+}
+
+
+
+</style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='scripts/timer.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='scripts/spin.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='scripts/mxbg.js')}}"></script>
+</head>
+
+
+
+<body>
+  <div class="rain"></div>
+  <div style="color:white"id="generated-objects"></div>
+  <div id="y2"></div>
+  <div id="y1"></div>
+  <div id="y"></div>
+  <div id="xup"></div>
+  <div id="xdown"></div>
+  <div id="x"></div>
+  <span id="sin"></span>
+  <div id="users"></div>
+  <div id="line-container"></div>
+</body>
+
+
+
+
+<script>
+var winnerDiv = $("<div id=winner></div>");
+$("body").append(winnerDiv);
+var timerDiv = $("<div id=timer></div>");
+$("body").append(timerDiv);
+var lastUsers = [];
+
+placeLinesOnCircle(420, 100);
+
+var func = setInterval(function() {
+    fetch("http://localhost:5000/jackpot").then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+    }).then(data => {
+      if (!(data.winner == null)) {
+        winnerDiv.text("Winner: " + data.winner);
+      } 
+
+      if (timerDiv.text().length >= 0 && timerDiv.text().length <= 20) {
+        runTimer(data.end_time);      
+      } 
+
+      $("#sin").text(data.id);
+
+
+      if (data.users.length != lastUsers.length) {
+        colorLinesOnCircle(data.users);
+      }
+      
+      if (data.users.length > 0) {
+        for (var i = 0; i < data.users.length; i++) {
+          
+          var us = data.users[i];
+          var users = $("#user" + us.sender);
+
+
+
+          // Check if div with given id already exists.
+          if (users.length == 0) {
+            // Create new div with given id.
+            console.log("Adding new user");
+            newDiv = $("<div id=user" + us.sender + "></div>");
+            const userColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+            newDiv.attr("potColor", userColor);
+            newDiv.text("User: " + us.sender.slice(0, 5) + " Amount: " + us.amount + " Chances: " + us.probability.toFixed(2));
+            $("#users").append(newDiv);
+          } 
+          else {
+            // Update existing div.
+            console.log("updating user");
+            existingDib = $("#user" + us.sender);
+            existingDib.text("User: " + us.sender.slice(0, 5) + " Amount: " + us.amount + " Chances: " + us.probability.toFixed(2));
+          }
+      } 
+    } else {
+      // Clear the content if new response is empty.
+      $("#users").empty();
+    }
+    }).catch(err => {
+      console.log(err);
+    });
+}, 3000)
+
+</script>
+
+<script>
+function obrut() {
+  var lines = $("#line-container .line");
+
+  for (let i = 0; i < 100; i++) {
+    var dataIndex = lines.eq(i).attr("data-index");
+    if (parseInt(dataIndex) == i) {
+      lines[i].animate({"height": "20px"}, 1000 + (100 * i));
+    }
+    }
+}
+//setInterval(obrut, 5000)
+</script>

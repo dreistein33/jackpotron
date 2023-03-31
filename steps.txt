@@ -1,0 +1,38 @@
+Czyli apka, ktora ma stronke, polega na "loterii"
+
+
+Zasady gry:
+1. Uzytkownik wybiera interesujaca go loterie
+2. Nastepnie od razu wyswietla mu sie strona z adresem wplaty
+3. Uzytkownik wplaca okreslona kwote na podany portfel
+4. System sprawdza czy wybrana transakcja doszla (LOOP)
+5. Jesli tak adres uczestnika zostaje dopisany do listy uczestnikow
+6. Po okreslonym czasie i spelnieniu warunkow (LOOP) wykonania loterii nastepuje losowanie
+7. Losowo wybieramy jeden adres z puli nie losujac powtarzajacych sie nasza polityka jest taka, ze kazdy ma rowne szanse xD
+8. System wysyla srodki na portfel zwyciezcy
+
+
+[WYGLAD STRONKI]
+musza sie na niej znajdowac:
+* Stawka
+* Prize pool
+* Hiperlacze do wplaty
+* Czas do konca
+
+
+TODO!
+1. Stworzyc wzor loterii, ktory bedziemy mogli wyswietlic na stronce
+
+CREATE TABLE loteria (id INTEGER PRIMARY KEY, starttime INTEGER, endtime INTEGER, status TEXT, prize REAL, wallet TEXT, winner TEXT)
+CREATE TABLE ticket (id INTEGER PRIMARY KEY, sender TEXT, receiver TEXT, amount REAL, timestamp REAL, loteria_id INTEGER, memo TEXT, FOREIGN KEY (loteria_id) REFERENCES loteria (id))
+
+
+Odlaczyc stronke od bazy danych
+Nadac permisje do bazy danych
+Zrobic tak zeby stronka mogla tylko readowac z bazy danych
+
+
+Api do db
+Endpointy:
+Zwrot Transakcji
+Zwrot Loterii 
