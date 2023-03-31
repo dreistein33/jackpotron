@@ -6,11 +6,11 @@
     body {
       z-index: 0;
       justify-content:center;
-      content-align:center;
       overflow: hidden;
       background-color: black;
-
     }
+
+
       .dollar {
         color: green;
         font-size: 20px;
@@ -19,6 +19,7 @@
         z-index: 1;
       }
 
+
       .bar {
         color: green;
         font-size: 20px;
@@ -26,8 +27,6 @@
         animation: fall 2s linear forwards;
         z-index: 1;
       }
-
-
 
 
     @keyframes fall {
@@ -43,6 +42,7 @@
           }
     }
 
+
     #y2 {
       left:70%;
       position: fixed;
@@ -51,6 +51,8 @@
       z-index:10;
       background-color: blue;
     }
+
+
     #y1 {
       left:30%;
       position: fixed;
@@ -59,6 +61,8 @@
       z-index:10;
       background-color: blue;
     }
+
+
     #y {
       left:50%;
       position: fixed;
@@ -67,6 +71,8 @@
       z-index:10;
       background-color: blue;
     }
+
+
     #x {
       top:50%;
       position:fixed;
@@ -75,6 +81,8 @@
       z-index:10;
       background-color: red;
     }
+
+
     #xup {
       top:10%;
       position:fixed;
@@ -83,6 +91,8 @@
       z-index:10;
       background-color: red;
     }
+
+
     #xdown {
       top:80%;
       position:fixed;
@@ -91,8 +101,6 @@
       z-index:10;
       background-color: red;
     }
-
-
 
 
     #sin {
@@ -115,12 +123,6 @@
     }
 
 
-
-    #user-container {
-
-
-
-    }
     #abstract {
       z-index:1;
       animation: colorx 1s linear infinite;
@@ -133,8 +135,6 @@
       justify-content: center;
       position: absolute;
     }
-
-
 
 
     #line-container {
@@ -152,7 +152,6 @@
     }
 
 
-
     .line {
       z-index:4;
       padding: 1px;
@@ -165,6 +164,7 @@
 
 
   }
+
 
 @keyframes ueue { 
     0% {
@@ -242,6 +242,8 @@ var func = setInterval(function() {
     fetch("http://localhost:5000/jackpot").then(response => {
       if (response.ok) {
         return response.json();
+      } else {
+        console.log("Stop messing around!");
       }
     }).then(data => {
       if (!(data.winner == null)) {
