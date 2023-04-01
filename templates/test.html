@@ -1,12 +1,15 @@
-<p>T: <span id="cos"></span></p>
+<!DOCTYPE html>
+<head>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        const socket = io("ws://localhost:4998");
 
-<script>
-    var time = 0;
-    var interval = setInterval(function() {
+        socket.on("connect", function() {
+            socket.emit("data");
+        });
 
-        document.getElementById("cos").textContent = time;
-
-        time++;
-
-    }, 1000)
-</script>
+        socket.on("response", function(response) {
+            console.log(response);
+        });
+    </script>
+</head>

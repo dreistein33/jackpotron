@@ -1,16 +1,18 @@
 import db
+import json
 import numpy as np
 import requests
 import time
 import lot
 import random
+import simple_websocket
 import threading
 
 db_obj = db.Database()
 
 
 class Lottery:
-    def __init__(self, id, start_time, end_time, address, status, prize) -> None:
+    def __init__(self, id: int, start_time: float, end_time: float, address: str, status: str, prize: float) -> None:
         self.id = id
         self.start_time = start_time
         self.end_time = end_time
@@ -31,7 +33,20 @@ class Lottery:
             self.__dict__[__name] = __value
 
 
-def get_needed_data():
+def to_frontend() -> None:
+    """
+    This function triggers the event on WebSocket Server that cause broadcasting the data from database to all connected clients.
+    Returns: None
+    """
+    client = simple_websocket.Client("ws://localhost:4998/chuj")
+    # event_data = {"event": "data"}
+    # event_data_json = json.dumps(event_data)
+    # client.send(event_data_json.encode())
+    # data = client.receive()
+    # print(data)
+
+def get_needed_data() -> None:
+    """Get timestamps and memos of active lotteries."""
     loteries = db_obj.get_table_data('loteria')
     if len(loteries) > 0:
         memos = [x['id'] for x in loteries]
@@ -42,7 +57,11 @@ def get_needed_data():
         return memos, min_start_time, max_end_time
 
 
-def get_fitable_txs():
+def get_fitable_txs() -> list:
+    """
+    Get txs that fit into given time frames.
+    :return: List of all transactions that fit lotteries.
+    """
     wallet = lot.Wallet(lot.adr['base58check_address'])
     try:
         memos, start, end = get_needed_data()
@@ -59,8 +78,12 @@ def get_fitable_txs():
     return fitable
 
 
-def assembly_lottery_with_users(id):
-    """Return an lottery object assembled with all transactions in regard to it"""
+def assembly_lottery_with_users(id: int) -> Lottery:
+    """
+    Return an lottery object assembled with all transactions in regard to it
+    :param id: Id of lottery to be assembled.
+    :return: Lottery object with fitting txs.
+    """
     lottery = db_obj.get_table_data('loteria', {'id': id})[0]
     fitable_txs = db_obj.get_table_data('ticket')
 
@@ -73,15 +96,12 @@ def assembly_lottery_with_users(id):
     return lottery_obj
 
 
-def is_profit(lot_obj: Lottery) -> bool:
-    if len(lot_obj.users) > 0 and lot_obj.prize > 0:
-        pool_sum = sum([x['amount'] for x in lot_obj.users])
-        if pool_sum > lot_obj.prize:
-            return True
-    return False
-
-
-def get_winner_wage_based(id):
+def get_winner_wage_based(id: int) -> str:
+    """
+    Draw winner based on shares of single user of the prizepool.
+    :param id: Id of lottery.
+    :return: Winner's wallet address, str
+    """
     lot_obj = assembly_lottery_with_users(id)
     users_tickets = {}
     users = lot_obj.users
@@ -93,6 +113,8 @@ def get_winner_wage_based(id):
         except KeyError:
             users_tickets[user['sender']] = user['amount']
 
+    # The p parameter is a list of wages which are result of dividing shares by prizepool.
+    # Example: user1 ($1), user2 ($2), prizepool ($3) | user1_wage = user1 / prizepool and so on.
     winner = np.random.choice(list(users_tickets.keys()), 1, p=[x/lot_obj.prize for x in users_tickets.values()])
     winner_str = str(winner[0])
     print(type(winner_str), winner_str)
@@ -100,15 +122,11 @@ def get_winner_wage_based(id):
     return winner_str
 
 
-def get_winner(id):
-    lottery_obj = assembly_lottery_with_users(id)
-    participants = list(set([x['sender'] for x in lottery_obj.users]))
-    winner = random.choice(participants)
-
-    return winner
-
-
-def try_push(name):
+def try_push(name:str):
+    """
+    Check for new transactions, and if there are any, push it to DB.
+    :param name: Name of table in DB (This shit pretty stoopid) !TOFIX
+    """
     while True:
         if len(get_fitable_txs()) > 0:
             for items in get_fitable_txs():
@@ -124,40 +142,19 @@ def try_push(name):
         time.sleep(10)
 
 
-def finish_lottery(id):
-    lottery_obj = assembly_lottery_with_users(id)
-        
-    # assert winner != lottery_obj.address, "If this happened, you fucked up"
-
-    if lottery_obj.status == 'started' and time.time() >= lottery_obj.end_time:
-        if len(lottery_obj.users) == 0:
-            print("No participants! Closing the lottery.")
-            lottery_obj.winner = None
-            return
-                
-        wallet = lot.Wallet(lot.adr['base58check_address'])
-        wallet.set_pk(lot.adr['private_key'])
-
-        profitable = is_profit(lottery_obj)
-        if profitable:
-            winner = get_winner(id)
-            lottery_obj.winner = winner
-            wallet.send_tx(winner, lottery_obj.prize)
-        else:
-            lottery_obj.winner = None
-            for items in lottery_obj.users:
-                wallet.send_tx(items['sender'], items['amount'])
-                print(f"Sending back {items['amount']}TRX to {items['sender']}")
-
-
 def is_eligible(lot_obj: Lottery) -> bool:
-    """Check if current jackpot state allows to roll."""
+    """
+    Check if current jackpot state allows to roll.
+    :param lot_obj: Lottery class object.
+    :return: bool
+    """
     if len(lot_obj.users) > 0 and lot_obj.prize > 0:
         return True
     return False
 
 
 def finish_jackpot(id):
+    """Define if lottery meet the requirements to draw the winner and execute."""
     lottery_obj = assembly_lottery_with_users(id)
         
     # assert winner != lottery_obj.address, "If this happened, you fucked up"
@@ -180,28 +177,11 @@ def finish_jackpot(id):
             lottery_obj.winner = None
 
 
-def await_roll(id):
-    """This function will run as a separate thread and wait to end the lottery"""
-    lottery_obj = assembly_lottery_with_users(id)
-    
-    lottery_end_time = lottery_obj.end_time
-    
-    if time.time() < lottery_end_time and lottery_obj.status == 'started':
-
-        print(f"Awaiting ID {id}")
-        time.sleep(lottery_end_time - time.time())
-
-        finish_lottery(id)
-
-    elif time.time() > lottery_end_time and lottery_obj.status == 'started':
-        finish_lottery(id)
-        print(f"LOTTERY ID {lottery_obj.id} NOT FINALIZED")
-
-
 def await_jackpot(id):
+    """Wait, execute. Simple as that."""
     lottery_obj = assembly_lottery_with_users(id)
     end_time = lottery_obj.end_time
-    started = lottery_obj.status = "started"
+    started = lottery_obj.status 
 
     current_time = time.time()
     if current_time < end_time and started:
@@ -209,6 +189,7 @@ def await_jackpot(id):
         time.sleep(end_time-time.time())
         finish_jackpot(id)
     
+    # Idk if I should delete this.
     elif current_time > end_time and started:
         finish_jackpot(id)
 
@@ -221,35 +202,8 @@ def finish_missed_lotteries():
 
         if missed:
             finish_jackpot(lot['id'])
-            print(f"Succesfully finished JACKPOT #{lot['id']}")
+            print(f"!MISSED! Succesfully finished JACKPOT #{lot['id']}")
 
 
-
-if __name__ == '__main__':
-    processed_lotteries = set()
-    
-    push_thread = threading.Thread(target=try_push, args=("ticket",))
-    push_thread.daemon = True
-    push_thread.start()
-
-    is_running = True
-
-    while is_running:
-        try:
-            lotteries_to_await = requests.get("http://localhost:5000/lotteries").json()
-
-            for items in lotteries_to_await:
-                # Check if time to await is not exceeding the threading.TIMEOUT_MAX value
-                eligible = items['endtime'] - time.time() < threading.TIMEOUT_MAX
-                # If not stop executing this method.
-                if items['id'] not in processed_lotteries and eligible:
-                    await_thread = threading.Thread(target=await_roll, args=(items['id'],))
-                    await_thread.daemon = True; await_thread.start()
-
-                    processed_lotteries.add(items['id'])
-            time.sleep(10)
-
-        except KeyboardInterrupt:
-            del db_obj
-            is_running = False
-   
+if __name__ == "__main__":
+    to_frontend()
