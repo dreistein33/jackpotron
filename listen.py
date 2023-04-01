@@ -66,7 +66,6 @@ def create_lottery(_minutes: int, _hours: int=0, _days: int=0):
         id = db_obj.get_table_data("loteria")[-1]["id"]
         to_frontend()
         return id
-    
 
 
 def get_needed_data() -> None:

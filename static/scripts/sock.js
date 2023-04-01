@@ -12,6 +12,17 @@ socket.on("connect", function() {
 
 socket.on("response", (response) => {
     if (response.status == "started") {
-        console.log("git");
+        console.log("started");
+        /* 
+        Aktualizuj dane:
+          Id
+          Users
+          Lines colors
+          Time end
+        */
+    } else if (response.status == "ended") {
+        console.log("ended");
+        // Wywolaj animacje
+        // Wyswietl zwyciezce 
     }
 });

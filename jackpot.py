@@ -11,6 +11,7 @@ while True:
         id = listen.create_lottery(_minutes=15)
         if id is not None:
             listen.await_jackpot(id)
+            # Dodac time.sleep(x) zeby zgadzalo sie z animacja na frotenedzie
         
     except KeyboardInterrupt:
         break
