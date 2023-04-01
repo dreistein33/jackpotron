@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <head>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const socket = io("ws://localhost:4998");
 
         socket.on("connect", function() {
             socket.emit("data");
+            console.log("Succesfully Connected!");
         });
 
         socket.on("response", function(response) {

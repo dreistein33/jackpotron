@@ -1,13 +1,10 @@
+import datetime
 import db
-import json
 import numpy as np
-import requests
 import time
 import lot
-import random
-import simple_websocket
-import threading
-
+import socketio
+import time
 db_obj = db.Database()
 
 
@@ -38,12 +35,36 @@ def to_frontend() -> None:
     This function triggers the event on WebSocket Server that cause broadcasting the data from database to all connected clients.
     Returns: None
     """
-    client = simple_websocket.Client("ws://localhost:4998/chuj")
-    # event_data = {"event": "data"}
-    # event_data_json = json.dumps(event_data)
-    # client.send(event_data_json.encode())
-    # data = client.receive()
-    # print(data)
+    sio = socketio.Client()
+    host = "ws://127.0.0.1:4998"
+    sio.connect(host)
+    sio.emit("data")
+    time.sleep(1)
+    sio.disconnect()
+    print("Event Triggered!")
+    
+
+
+def create_lottery(_minutes, _hours=0, _days=0):
+    start_time = time.time()
+    end_time = datetime.datetime.fromtimestamp(start_time) + datetime.timedelta(days=_days, minutes=_minutes, hours=_hours) 
+    wallet = 'TKsK4ohrvsKJwVUkdy4ocTD32MAh1UparG'
+    # Check if any other lottery is started
+    lotteries_started = db_obj.get_table_data('loteria', {'status': "'started'"})
+    print(lotteries_started, " Started lotteries!")
+    # Create lottery if none are active
+    if len(lotteries_started) == 0:
+        db_obj.generic_create_record('loteria', {'starttime': start_time, 'endtime': end_time.timestamp(), 'wallet': wallet, 'status': 'started', 'prize': 0, 'winner': None})
+        id = db_obj.get_table_data("loteria")[-1]['id']
+        to_frontend()
+        return id
+    # Return id of lottery if any running
+    elif len(lotteries_started) == 1:
+        id = db_obj.get_table_data("loteria")[-1]["id"]
+        to_frontend()
+        return id
+    
+
 
 def get_needed_data() -> None:
     """Get timestamps and memos of active lotteries."""
@@ -139,6 +160,8 @@ def try_push(name:str):
                     new_prize = lot_obj.prize + items['amount']
                     db_obj.edit_value('loteria', {'prize': new_prize}, ('id', items['loteria_id']))
                     print(f"Succesfully pushed tx")
+                    # Broadcast event.
+                    to_frontend()
         time.sleep(10)
 
 
@@ -163,6 +186,7 @@ def finish_jackpot(id):
         if len(lottery_obj.users) == 0:
             print("No participants! Closing the lottery.")
             lottery_obj.winner = None
+            to_frontend()
             return
                 
         wallet = lot.Wallet(lot.adr['base58check_address'])
@@ -175,6 +199,8 @@ def finish_jackpot(id):
             wallet.send_tx(winner, lottery_obj.prize)
         else:
             lottery_obj.winner = None
+        
+        to_frontend()
 
 
 def await_jackpot(id):

@@ -1,27 +1,7 @@
 import db
 import time
 import lot
-import datetime
 import random
-
-
-def create_lottery(_minutes, _hours=0, _days=0):
-    _db = db.Database()
-    start_time = time.time()
-    end_time = datetime.datetime.fromtimestamp(start_time) + datetime.timedelta(days=_days, minutes=_minutes, hours=_hours) 
-    wallet = 'TKsK4ohrvsKJwVUkdy4ocTD32MAh1UparG'
-    # Check if any other lottery is started
-    lotteries_started = _db.get_table_data('loteria', {'status': "'started'"})
-    print(lotteries_started, " Started lotteries!")
-    # Create lottery if none are active
-    if len(lotteries_started) == 0:
-        _db.generic_create_record('loteria', {'starttime': start_time, 'endtime': end_time.timestamp(), 'wallet': wallet, 'status': 'started', 'prize': 0, 'winner': None})
-        id = _db.get_table_data("loteria")[-1]['id']
-        return id
-    # Return id of lottery if any running
-    elif len(lotteries_started) == 1:
-        id = _db.get_table_data("loteria")[-1]["id"]
-        return id
 
 
 def get_needed_data(db_obj):
@@ -34,7 +14,6 @@ def get_needed_data(db_obj):
         max_end_time = max(end_times)
         return memos, min_start_time, max_end_time
     
-
 
 def get_fitable_txs():
     wallet = lot.Wallet(lot.adr['base58check_address'])

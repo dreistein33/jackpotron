@@ -7,9 +7,11 @@ function requestData() {
 }
 
 socket.on("connect", function() {
-    var intervalId = setInterval(requestData, 5000);
+    requestData();
 });
 
 socket.on("response", (response) => {
-    console.log(response);
+    if (response.status == "started") {
+        console.log("git");
+    }
 });

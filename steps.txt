@@ -36,3 +36,9 @@ Api do db
 Endpointy:
 Zwrot Transakcji
 Zwrot Loterii 
+
+[01.04.2023]
+!TODO
+  Przeorganizowac strukture plikow w repo, w taki sposob zeby bylo ono podzielone na trzy glowne elementy (FRONTEND, BACKEND, COMMON)
+  Zrobic zeby triggerowanie tych jebanych eventow dzialalo
+  

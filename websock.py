@@ -2,7 +2,6 @@ import db
 from flask import Flask
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit 
-import time
 import utils
 
 app = Flask(__name__)
@@ -12,6 +11,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 @socketio.on("data")
 def get_data():
+    print("DATATATATATA")
     db_obj = db.Database()
     db_lottery = db_obj.get_table_data('loteria')[-1]
     
