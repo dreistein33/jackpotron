@@ -11,7 +11,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 @socketio.on("data")
 def get_data():
-    print("DATATATATATA")
     db_obj = db.Database()
     db_lottery = db_obj.get_table_data('loteria')[-1]
     

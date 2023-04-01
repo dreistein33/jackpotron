@@ -38,14 +38,17 @@ def to_frontend() -> None:
     sio = socketio.Client()
     host = "ws://127.0.0.1:4998"
     sio.connect(host)
+    # Trigger "data" event!
     sio.emit("data")
+    # Await emitting the event, too lazy to rebuild all this to asyncio.
     time.sleep(1)
     sio.disconnect()
     print("Event Triggered!")
     
 
 
-def create_lottery(_minutes, _hours=0, _days=0):
+def create_lottery(_minutes: int, _hours: int=0, _days: int=0):
+    """Create new record in DB"""
     start_time = time.time()
     end_time = datetime.datetime.fromtimestamp(start_time) + datetime.timedelta(days=_days, minutes=_minutes, hours=_hours) 
     wallet = 'TKsK4ohrvsKJwVUkdy4ocTD32MAh1UparG'

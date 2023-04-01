@@ -237,6 +237,10 @@ var lastUsers = [];
 
 placeLinesOnCircle(420, 100);
 
+// TODO!
+// DO PRZEROBIENIA 
+// W sumie nie musze sie jebac z validowaniem responsa od api, bo teraz kazda odpowiedz serwera oznacza zmiane stanu loterii!
+// Zdefiniowac co strona musi robic i pokazywac wzgledem dwoch statusow: "started" & "ended"
 var func = setInterval(function() {
     fetch("http://localhost:5000/jackpot").then(response => {
       if (response.ok) {

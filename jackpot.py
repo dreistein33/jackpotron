@@ -2,7 +2,7 @@ import listen
 import threading
 
 
-listen.finish_missed_lotteries()
+listen.finish_missed_lotteries() # DELETE (?)
 push_thread = threading.Thread(target=listen.try_push, args=("ticket",))
 push_thread.daemon = True; push_thread.start()
 
