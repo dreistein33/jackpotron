@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <head>
-  <meta http-equiv="refresh" content="600">
+  <meta http-equiv="refresh" content="120">
   <style type="text/css">
 
     body {
+      width:100vw;
+      height:100vh;
+      max-width: 100vw;
+      max-height: 100vh;
       z-index: 0;
-      justify-content:center;
       overflow: hidden;
       background-color: black;
-    }
 
+    }
 
       .dollar {
         color: green;
@@ -19,13 +22,15 @@
         z-index: 1;
       }
 
-
       .bar {
         color: green;
         font-size: 20px;
         position: absolute;
+        animation: fall 2s linear forwards;
         z-index: 1;
       }
+
+
 
 
     @keyframes fall {
@@ -42,142 +47,121 @@
     }
 
 
-    #y2 {
-      left:70%;
+    #winner {
+      box-shadow: 2px 5px 5px gold;
+      text-align:center;
+      font-size: 28px;
+      height:8vh;
+      width: 34vw;
+      position:absolute;
+      z-index: 5;
+      color: #f5f5f5;
+      border:5px solid none;
+      background-color:none;
+      left:30vw;
+      top: 87vh
+
+    }
+
+    #timer {
+      text-align:center;
+      background-color: none;
+      top: 7vh;
+      left: 30vw;
+      height: 60px;
+      width: 34vw;
+      z-index: 6;
+      font-size: 50px;
+      position: absolute;
+    }
+    .shadow {
+      color: red;
+      text-shadow: #123207 0px 0px 5px, #123207 0px 0px 10px, #123207 0px 0px 15px, #123207 0px 0px 20px, #123207 0px 0px 30px, white 0px 0px 40px, #123207 0px 0px 50px, red 0px 0px 75px;
+      color: #f5f5f5;
+      background: #080808;
+
+
+    }
+    #users {
+      text-shadow: 2px 2px 5px white;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      color:black;
+      border-radius:0% 0% 20% 20%;
+
+      top:10vh;
+      text-align:left;
+      font-size: 26px;
+      left:65vw;
+      width:34vw;
+      max-width:34vw;
+      min-height: 3vh;
+      max-height: 90vh;
+      overflow-y: auto;
+      
+      z-index: 4;
+      border: 5px solid white;
+      position: absolute;
+      background-color:#123207;
+      font-size: 32px;
+    }
+    #utitle {
+      padding-bottom: 5px;
+      padding-top: 3px;
+      font-weight: bold;
+      text-shadow: 2px 2px 10px #f5f5f5;
+      border-radius:30% 30% 0% 0%;
+      z-index:4;
+      position: absolute;
+      color:black;
+      background-color:#123207;
+      top:2vh;
+      bottom:90vh;
+      left:65vw;
+      max-width:34vw;
+      width:34vw;
+      border: 5px solid white;
+      text-align:center;
+      font-size: 40px;
+      
+
+    }
+
+#line-container {
+      border:2px solid red;
+      animation: spin 60s ease infinite;
+      z-index:4;
+      background-color: #123207;
+      border-radius:50% 0% 50% 0%;
+      left: 45vw;
+      top: 45vh;
+      width: 100px;
+      height: 100px;
       position: fixed;
-      width:1px;
-      height:100%;
-      z-index:10;
-      background-color: blue;
     }
-
-
-    #y1 {
-      left:30%;
-      position: fixed;
-      width:1px;
-      height:100%;
-      z-index:10;
-      background-color: blue;
-    }
-
-
-    #y {
-      left:50%;
-      position: fixed;
-      width:1px;
-      height:100%;
-      z-index:10;
-      background-color: blue;
-    }
-
-
-    #x {
-      top:50%;
-      position:fixed;
-      height:1px;
-      width:100%;
-      z-index:10;
-      background-color: red;
-    }
-
-
-    #xup {
-      top:10%;
-      position:fixed;
-      height:1px;
-      width:100%;
-      z-index:10;
-      background-color: red;
-    }
-
-
-    #xdown {
-      top:80%;
-      position:fixed;
-      height:1px;
-      width:100%;
-      z-index:10;
-      background-color: red;
-    }
-
-
-    #sin {
-      border:10px solid gold;
+  #sin {
+      text-shadow: 2px 2px 5px black;
       border-radius: 50%;
       z-index: 5;
       color: red;
-      font-size: 60px;
-      position: absolute;
-      left: 47%;
-      top: 47%;
+      font-size: 54px;
+      position: relative;
+      top: 20%;
+      left: 10%
     }
 
-
-    #users {
-      position: absolute;
-      background-color:gold;
-      font-size: 32px;
-
-    }
-
-
-    #abstract {
-      z-index:1;
-      animation: colorx 1s linear infinite;
-      background-color: blue;
-      border-radius: 50%;
-      top: 12.6%;
-      left: 33.75%;
-      width: 600px;
-      height: 600px;
-      justify-content: center;
-      position: absolute;
-    }
-
-
-    #line-container {
-      z-index:4;
-      animation: spin 30s ease infinite;
-      background-color: white;
-
-      border-radius: 40%;
-
-      top: 30%;
-      left: 38%;
-      width: 400px;
-      height: 400px;
-      position: absolute;
-    }
-
-
-    .line {
-      z-index:4;
+  .line {
+      
+      z-index:5;
       padding: 1px;
-      clip-path: polygon(0% 100%, 100% 70%, 100% 0, 0% 0);
-      position: fixed;
+      clip-path: polygon(0% 100%, 100% 50%, 100% 0, 0% 0);
       background-color: white;
-      border-radius: 45%;
-      height: 5px;
-      width: 111px;
-
-
+      border-radius: 10%;
+      height: 7px;
+      width: 120px;
   }
 
 
-@keyframes ueue { 
-    0% {
-      background-color: blue;
-    }
-    50% {
-      background-color: red;
-    }
-  
-    100% {
-      background-color: green;
-      
-    }
-}
 @keyframes spin {
   0% {transform: rotate(0deg)}
   100% {transform: rotate(360deg)}
@@ -198,118 +182,66 @@
   100% {transform: rotate(360deg)}
 
 }
-
-
-
-</style>
+  </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  <script type="text/javascript" src="{{url_for('static', filename='scripts/timer.js')}}"></script>
-  <script type="text/javascript" src="{{url_for('static', filename='scripts/spin.js')}}"></script>
-  <script type="text/javascript" src="{{url_for('static', filename='scripts/mxbg.js')}}"></script>
+  <script
+    type="text/javascript"
+    src="{{url_for('static', filename='scripts/timer.js')}}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{url_for('static', filename='scripts/spin.js')}}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{url_for('static', filename='scripts/mxbg.js')}}"
+  ></script>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 </head>
 
-
-
 <body>
+      <div class="shadow"><div id="timer">
+  </div></div>
+
   <div class="rain"></div>
-  <div style="color:white"id="generated-objects"></div>
-  <div id="y2"></div>
-  <div id="y1"></div>
-  <div id="y"></div>
-  <div id="xup"></div>
-  <div id="xdown"></div>
-  <div id="x"></div>
-  <span id="sin"></span>
-  <div id="users"></div>
-  <div id="line-container"></div>
+
+
+  
+      <div id="utitle">
+        ACCEPTED TX's</div>
+      <div id="users">
+  </div>
+  <div id="line-container">
+    <span id="sin"></span>
+  </div>
 </body>
 
-
-
-
 <script>
-var winnerDiv = $("<div id=winner></div>");
-$("body").append(winnerDiv);
-var timerDiv = $("<div id=timer></div>");
-$("body").append(timerDiv);
-var lastUsers = [];
-
-placeLinesOnCircle(420, 100);
-
-// TODO!
-// DO PRZEROBIENIA 
-// W sumie nie musze sie jebac z validowaniem responsa od api, bo teraz kazda odpowiedz serwera oznacza zmiane stanu loterii!
-// Zdefiniowac co strona musi robic i pokazywac wzgledem dwoch statusow: "started" & "ended"
-var func = setInterval(function() {
-    fetch("http://localhost:5000/jackpot").then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log("Stop messing around!");
-      }
-    }).then(data => {
-      if (!(data.winner == null)) {
-        winnerDiv.text("Winner: " + data.winner);
-      } 
-
-      if (timerDiv.text().length >= 0 && timerDiv.text().length <= 20) {
-        runTimer(data.end_time);      
-      } 
-
-      $("#sin").text(data.id);
-
-
-      if (data.users.length != lastUsers.length) {
-        colorLinesOnCircle(data.users);
-      }
-      
-      if (data.users.length > 0) {
-        for (var i = 0; i < data.users.length; i++) {
-          
-          var us = data.users[i];
-          var users = $("#user" + us.sender);
-
-
-
-          // Check if div with given id already exists.
-          if (users.length == 0) {
-            // Create new div with given id.
-            console.log("Adding new user");
-            newDiv = $("<div id=user" + us.sender + "></div>");
-            const userColor = "#" + Math.floor(Math.random()*16777215).toString(16);
-            newDiv.attr("potColor", userColor);
-            newDiv.text("User: " + us.sender.slice(0, 5) + " Amount: " + us.amount + " Chances: " + us.probability.toFixed(2));
-            $("#users").append(newDiv);
-          } 
-          else {
-            // Update existing div.
-            console.log("updating user");
-            existingDib = $("#user" + us.sender);
-            existingDib.text("User: " + us.sender.slice(0, 5) + " Amount: " + us.amount + " Chances: " + us.probability.toFixed(2));
-          }
-      } 
-    } else {
-      // Clear the content if new response is empty.
-      $("#users").empty();
-    }
-    }).catch(err => {
-      console.log(err);
-    });
-}, 3000)
-
+  var winnerDiv = $("<div id=winner></div>");
+  $("body").append(winnerDiv);
+  var timerDiv = $("<div id=timer></div>");
+  $("body").append(timerDiv);
+  var lastUsers = [];
+  placeLinesOnCircle(420, 100);
 </script>
+// TODO! // DO PRZEROBIENIA // W sumie nie musze sie jebac z validowaniem
+responsa od api, bo teraz kazda odpowiedz serwera oznacza zmiane stanu loterii!
+// Zdefiniowac co strona musi robic i pokazywac wzgledem dwoch statusow:
+"started" & "ended"
+
+<script src="{{url_for('static', filename='scripts/sock.js')}}"></script>
 
 <script>
-function obrut() {
-  var lines = $("#line-container .line");
+  function obrut() {
+    var lines = $("#line-container .line");
 
-  for (let i = 0; i < 100; i++) {
-    var dataIndex = lines.eq(i).attr("data-index");
-    if (parseInt(dataIndex) == i) {
-      lines[i].animate({"height": "20px"}, 1000 + (100 * i));
+    for (let i = 0; i < 100; i++) {
+      var dataIndex = lines.eq(i).attr("data-index");
+      if (parseInt(dataIndex) == i) {
+        lines[i].animate({ height: "20px" }, 1000 + 100 * i);
+      }
     }
-    }
-}
-//setInterval(obrut, 5000)
+  }
+  //setInterval(obrut, 5000)
 </script>
