@@ -1,8 +1,11 @@
 // WebSocket Client
+
+//Pokolorowanie lini na bialo
 function colorAllLines() {
     const lines = $("#spin .line");
     lines.css({"backgroundColor": "#f5f5f5"});
 }
+//Pokolorowanie lini wedle szans uzytkownikow
 function colorLinesOnCircle(users) {
     let start = 0;
     let end = 0;
@@ -54,6 +57,7 @@ function buildFrontend() {
     });
 
     socket.on("response", (data) => {
+        console.log(data)
         if (data.status == "started") {
             console.log("started");
             /* 
@@ -142,12 +146,22 @@ function buildFrontend() {
             } 
             else {
                 // Update existing div.
-                
                 console.log("updating user");
-                existingDiv = $("#user" + us.sender);
-                existingDiv.text("#" + us.sender.slice(0, 5) + " $ " + us.amount + " |%| " + (us.probability.toFixed(2) * 100));
+                var existingDiv = $("body").find("#user" + us.sender);
+                var tagDiv = existingDiv.find(".tag");
+                var amountDiv = existingDiv.find(".amount");
+                var luckDiv = existingDiv.find(".luck");
+
+                // Set the text for each div.
+                tagDiv.text("#" + us.sender.slice(0, 5));
+                amountDiv.text("$ " + us.amount);
+                luckDiv.text("|%| " + (us.probability.toFixed(2) * 100));
                 
+                
+                existingDiv.appendTo("#user");
             }
+
+            
             function sumAmounts() {
                 var total = 0;
                 $(".amount").each(function() {
@@ -164,13 +178,14 @@ function buildFrontend() {
         // Clear the content if new response is empty.
         }}
         else if (data.status == "ended") {
+            //Lottery end functions
             console.log("ended");
             colorAllLines();
             $("#timer").text("NEXT COMING")
             $("#prize").text("$ 0");
             $("#user").text("USERS");
             $("#winner").text(data.winner)
-            //KOLOR KOLA NA BIALY
+
 
             setTimeout(function() {
                 var winner = $("#winner").text();
@@ -181,11 +196,13 @@ function buildFrontend() {
                 $("#winner").fadeIn(500).delay(5000).fadeOut(1000, function() {
                     // Animacja przywrócenia normalnego wyglądu strony
                     $("#overlay").fadeOut(1000);
-          });
-        });
-      }
-    }, 500);
-
+                    location.reload(); //Odswiezenie strony, mozliwe ze trzeba dodac opoznienie 
+                        });
+                    });
+                
+                }
+            }, 500);
+            
         }
     });
 }
