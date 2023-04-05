@@ -79,13 +79,7 @@ class Database:
         self.cur.execute(query)
 
         print("SUCCESFULLY CREATED THE TABLE!")
-    # drop_wallet_table()
-    # create_wallet_table()
-    # insert_values("ADAS", 12573)
-    # print(display_table())
-
-    # create_table("transactions", {"buyer": "text", "seller": "text", "amount": "text"})
-
+    
     def get_all_records_from_table(self, name):
         query = f"SELECT * FROM {name}"
         response =  self.cur.execute(query).fetchall()
@@ -97,24 +91,6 @@ class Database:
         self.connection.commit()
         print('succesfuly cleared')
 
-    # def get_table_data(self, table_name, condition={}):
-    #     query = f"SELECT * FROM {table_name}"
-    #     if condition is {}:
-    #         self.cur.execute(query)
-    #     else:
-    #         for key, value in condition.items():
-    #             query += f" WHERE {key}={value}"
-    #         self.cur.execute(query)
-
-    #     rows = self.cur.fetchall()
-    #     col_names = [i[0] for i in self.cur.description]
-    #     result = []
-    #     for row in rows:
-    #         row_dict = dict(zip(col_names, row))
-    #         result.append(row_dict)
-
-    #     return result
-    
     def get_table_data(self, table_name, condition={}):
 
         cur = self.connection.cursor()
@@ -133,7 +109,6 @@ class Database:
     
         return result
 
-
     def execute_query(self, query):
         self.cur.execute(query)
         self.connection.commit()
@@ -144,19 +119,5 @@ class Database:
             return True
         return False
 
-
-
-def create_trigger():
-    db = sqlite3.connect("base.db")
-    def my_function():
-        print("New lottery added!")
-    db.create_function("my_function", 0, my_function)
-    query = '''CREATE TRIGGER IF NOT EXISTS nowy_rekord_trigger
-             AFTER INSERT ON loteria
-             BEGIN
-                 SELECT my_function();
-             END'''
-    db.execute(query)
-    
-    db.close()
 # dbase = Database()
+
