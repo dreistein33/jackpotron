@@ -21,5 +21,14 @@ def get_data():
 
     emit("response", response, json=True, broadcast=True)
 
+
+@socketio.on("history")
+def get_history():
+    db_obj = db.Database()
+    lotteries = db_obj.get_table_data('loteria')
+
+    emit("last", lotteries, json=True, broadcast=True)
+
+
 if __name__ == "__main__":
     socketio.run(app, port=4998, debug=True)

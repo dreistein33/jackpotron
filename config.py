@@ -1,10 +1,11 @@
 # Jackpotron Beta v0.1
 
 DATABASE = {
+    "provider": "postgres",
     "host": "localhost",
     "port": 1234,
-    "db_name": "name",
-    "username": "your username",
-    "password": "Your password"
+    "db_name": "jackpotron",
+    "username": "wtr",
+    "password": "wtr"
 }
 

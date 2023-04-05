@@ -1,5 +1,6 @@
 CREATE TYPE enum_status AS ENUM ('started', 'ended');
 
+
 DROP TABLE IF EXISTS loteria;
 CREATE TABLE loteria (
     id INTEGER PRIMARY KEY NOT NULL,

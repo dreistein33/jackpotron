@@ -50,12 +50,19 @@ function buildFrontend() {
 
     function requestData() {
         socket.emit("data");
+        socket.emit("history");
     }
 
     socket.on("connect", function() {
         requestData();
     });
 
+    // HISTORY DATA
+    socket.on("last", (data) => {
+        console.log(data);
+    })
+
+    // LIVE DATA
     socket.on("response", (data) => {
         console.log(data)
         if (data.status == "started") {
