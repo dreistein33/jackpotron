@@ -26,6 +26,9 @@ def wait_for_transaction():
 def jackpot():
     return render_template("jackpot.html")
 
+@app.route("/main")
+def main():
+    return render_template("main.html")
 
 @app.route("/lottery/<id>")
 def show_lottery_details(id):

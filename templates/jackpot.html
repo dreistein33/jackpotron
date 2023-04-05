@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <head>
-  <meta http-equiv="refresh" content="120">
   <style type="text/css">
 
     body {
@@ -187,10 +186,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <script
     type="text/javascript"
-    src="{{url_for('static', filename='scripts/timer.js')}}"
-  ></script>
-  <script
-    type="text/javascript"
     src="{{url_for('static', filename='scripts/spin.js')}}"
   ></script>
   <script
@@ -231,17 +226,4 @@ responsa od api, bo teraz kazda odpowiedz serwera oznacza zmiane stanu loterii!
 "started" & "ended"
 
 <script src="{{url_for('static', filename='scripts/sock.js')}}"></script>
-
-<script>
-  function obrut() {
-    var lines = $("#line-container .line");
-
-    for (let i = 0; i < 100; i++) {
-      var dataIndex = lines.eq(i).attr("data-index");
-      if (parseInt(dataIndex) == i) {
-        lines[i].animate({ height: "20px" }, 1000 + 100 * i);
-      }
-    }
-  }
-  //setInterval(obrut, 5000)
-</script>
+`

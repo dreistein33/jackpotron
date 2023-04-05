@@ -1,6 +1,6 @@
 function placeLinesOnCircle(diameter, numLines) {
     const radius = diameter / 2;
-    var lineContainer = $("#line-container");
+    var lineContainer = $("#spin");
     const centerX = -11;
     const centerY = 45;
     const angleStep = 2 * Math.PI / numLines;
@@ -18,7 +18,7 @@ function placeLinesOnCircle(diameter, numLines) {
       line.style.transform = `rotate(${lineAngle}rad)`;
       line.style.position = "absolute";
       line.setAttribute('data-index', i);
-      $("#line-container").append(line);
+      $("#spin").append(line);
     }
   }
   

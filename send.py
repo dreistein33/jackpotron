@@ -16,3 +16,4 @@ w3.set_pk(adr_4['private_key'])
 print(w1.send_tx(address, 3, id))
 print(w2.send_tx(address, 5, id))
 print(w3.send_tx(address, 2, id))
+

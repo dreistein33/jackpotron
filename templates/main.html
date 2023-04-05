@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>MAIN</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(30, 35, 41);
+  font-family: Arial, Helvetica, sans-serif;
+}
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5); /* Przyciemnienie na 50% */
+      z-index: 9999; 
+      display: none;
+    }
+    /* Dodac animacje do tekstu + mxbg */
+    #winner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 58px;
+      color: #ffffff;
+      z-index: 10000;
+      display: none; 
+    }
+
+.header {
+  
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+  font-size: 28px;
+
+}
+
+
+.column {
+  
+  float: left;
+  padding: 10px;
+  height: 100vh;
+}
+
+
+    .column.sidel {
+      width: 20%;
+    }
+      .adr {
+        border-radius: 3%;
+        height: 50%;
+        background-color: #eee;
+        padding: 10px;
+      }
+
+
+      .chat {
+        border-radius: 3%;
+        height: 50%;
+        background-color: #eee;
+        padding: 10px;
+      }
+
+
+  .column.sider {
+    width: 25%;
+  }
+
+    .panel {
+      border-radius: 3%;
+      height: 40%;
+      background-color: #ddd;
+      padding: 10px;
+    }
+
+    .prize {
+      margin-top:1%;
+      margin-bottom:1%;
+      height:10%;
+      border-radius: 5%;
+      background-color: #ddd;
+      padding: 10px;
+
+    }
+    #prize {
+      height:100%;
+      text-align:center;
+      border-radius: 5%;
+      border-top: 3px solid black;
+      border-right: 3px solid black;
+      font-size: 32px;
+      color: #333333;
+      background-color: #eee;
+      padding: 10px;
+
+    }
+
+    .user {
+      
+      border-radius: 3%;
+      height: 50%;
+      background-color: #ddd;
+      padding: 10px;
+    }
+    #user {
+
+      height:100%;
+      text-align:center;
+      border-radius: 3%;
+      border-top: 3px solid black;
+      border-right: 3px solid black;
+      padding: 10px;
+      font-size:24px;
+      background-color: #eee;
+
+    }
+      .tag,
+    .amount,
+    .luck {
+      padding:3px;
+      border-top: 1px solid gray;
+      display: inline-block;
+      vertical-align: top;
+    }
+    .tag {
+      color:gray;
+      text-align:left;
+      width:40%
+    }
+    .amount {
+      width:30%
+    }
+    .luck {
+      width:30%
+
+    }
+
+.column.middle {
+    border: 1px solid gray;
+  content-align:center;
+  text-align: center;
+  width: 55%;
+}
+  .id {
+    font-size: 40px;
+    background-color: #eee;
+    padding: 10px;
+  }
+
+
+
+  .timer {
+    margin-top: 1%;
+    height: 10%;
+    background-color: #eee;
+    padding: 10px;
+  }
+  #timer {
+    height:100%;
+    font-size: 28px;
+    background-color: #ddd;
+    padding: 10px;
+  }
+  #spin {
+    border-radius:50%;
+    animation: spin 6s linear infinite;
+    margin-top:15%;
+    margin-left:23%;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+
+    background-color:blue;
+  }
+    .line {
+
+      padding: 1px;
+      clip-path: polygon(0% 100%, 100% 50%, 100% 0, 0% 0);
+      background-color: #f5f5f5;
+      border-radius: 10%;
+      height: 12px;
+      width: 120px;
+  }
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+}
+
+
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+
+}
+
+
+
+
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .column.sider, .column.middle, .column.sider {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+<div id="overlay"></div>
+
+<div class="header">zrobic zeby sie chowal</div>
+
+<div class="row">
+
+    <div class="column sidel" style="background-color:#aaa;"> 
+      <div class="adr">QR ADRES INFO s1</div>
+      <div class="chat">CHAT LIVE s2</div>
+    </div>
+
+
+    <div class="column middle" style="background-color:#bbb;">
+      <div class="id"><span id="id"></span></div>
+      <div class="timer"></div>
+        <div id="spin"></div>
+    </div>
+
+
+    <div class="column sider" style="background-color:#ccc;">
+      <div class="panel">PANEL LOGOWANIA/BET s2</div>
+      <div class="prize"><div id="prize">$ 0</div></div>
+      <div class="user"><div id="user">USERS</div></div>
+    </div>
+
+
+</div>
+
+<div class="footer">
+  <p>FAQ/CONTACT/PROPOSITIONS
+  FUCK OFF IF YOU HAVE PROBLEM</p>
+</div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js">
+  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
+  </script>
+<script type="text/javascript" src="{{url_for('static', filename='scripts/spin.js')}}">
+  </script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js">
+  </script>
+<script src="{{url_for('static', filename='scripts/sock.js')}}">
+  </script>
+
+  <script>
+    var winnerDiv = $("<div id=winner>X</div>");
+    $("body").append(winnerDiv);
+    var timerDiv = $("<div id=timer></div>");
+    $(".timer").append(timerDiv);
+    var lastUsers = [];
+    placeLinesOnCircle(380, 100);
+    
+
+</script>
+
+<script>
+
+
+</script>
+
+
+
+</html>
