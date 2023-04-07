@@ -3,7 +3,7 @@
 DATABASE = {
     "provider": "postgres",
     "host": "localhost",
-    "port": 1234,
+    "port": 5432,
     "db_name": "jackpotron",
     "username": "wtr",
     "password": "wtr"
