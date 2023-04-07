@@ -8,11 +8,41 @@
 * {
   box-sizing: border-box;
 }
+/* LISTA KOLOROW
+#333333 background
+#
 
+
+
+
+
+ */
 body {
-  background-color: rgb(30, 35, 41);
+  background-color: #333333;
   font-family: Arial, Helvetica, sans-serif;
 }
+/* Ustaw tło paska przewijania */
+::-webkit-scrollbar {
+  background-color: black;
+}
+
+/* Ustaw kolor wypełnienia obszaru poza paskiem przewijania */
+::-webkit-scrollbar-track {
+  border:1px solid white;
+  background-color: #6b6b6b;
+}
+
+/* Ustaw kolor paska przewijania */
+::-webkit-scrollbar-thumb {
+  border:1px solid black;
+  background-color: #919191;
+}
+
+/* Ustaw kolor paska przewijania podczas najechania */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #c8c8c8;
+}
+
     #overlay {
       position: fixed;
       top: 0;
@@ -55,11 +85,12 @@ body {
 
     .column.sidel {
       width: 20%;
+      background-color: #5d5d5d;
     }
       .adr {
         border-radius: 3%;
         height: 50%;
-        background-color: #eee;
+        background-color: #797979;
         padding: 10px;
       }
 
@@ -67,19 +98,20 @@ body {
       .chat {
         border-radius: 3%;
         height: 50%;
-        background-color: #eee;
+        background-color: #646464;
         padding: 10px;
       }
 
 
   .column.sider {
+    background-color: #4f4f4f;
     width: 25%;
   }
 
     .panel {
       border-radius: 3%;
       height: 40%;
-      background-color: #ddd;
+      background-color: #646464;
       padding: 10px;
     }
 
@@ -88,7 +120,7 @@ body {
       margin-bottom:1%;
       height:10%;
       border-radius: 5%;
-      background-color: #ddd;
+      background-color: #646464;
       padding: 10px;
 
     }
@@ -109,7 +141,7 @@ body {
       
       border-radius: 3%;
       height: 50%;
-      background-color: #ddd;
+      background-color: #6b6b6b;
       padding: 10px;
     }
     #user {
@@ -146,49 +178,48 @@ body {
     }
 
 .column.middle {
-    border: 1px solid gray;
+  background-color: #5d5d5d;
+  border: 1px solid gray;
   content-align:center;
   text-align: center;
   width: 55%;
 }
-  .id {
-    letter-spacing: 6px;
-    font-size: 40px;
-    background-color: #eee;
-    padding: 10px;
-  }
+    .id {
+      letter-spacing: 6px;
+      font-size: 40px;
+      background-color: #eee;
+      padding: 10px;
+    }
+    .timer {
+      margin-top: 1%;
+      height: 10%;
+      background-color: #eee;
+      padding: 10px;
+    }
+      #timer {
+        height:100%;
+        font-size: 28px;
+        background-color: #ddd;
+        padding: 10px;
+      }
 
-
-
-  .timer {
-    margin-top: 1%;
-    height: 10%;
-    background-color: #eee;
-    padding: 10px;
-  }
-  #timer {
-    height:100%;
-    font-size: 28px;
-    background-color: #ddd;
-    padding: 10px;
-  }
   #spin {
-    border-radius:50%;
-    animation: spin 6s linear infinite;
+
+    animation: spin 15s linear infinite;
     margin-top:15%;
     margin-left:23%;
     position: absolute;
     height: 100px;
     width: 100px;
 
-    background-color:blue;
+    background-color:none;
   }
     .line {
-
+      box-shadow: 4px 4px 1px 0px rgba(0, 0, 0, 0.75);
       padding: 1px;
-      clip-path: polygon(0% 100%, 100% 50%, 100% 0, 0% 0);
+      clip-path: polygon(0% 100%, 100% 30%, 100% 5%, 0% 0);
       background-color: #f5f5f5;
-      border-radius: 10%;
+      border-radius: 7%;
       height: 12px;
       width: 120px;
   }
@@ -202,25 +233,88 @@ body {
 
 
 .history {
-
+  padding: 10px;
   text-align: center;
   font-size: 32px;
   letter-spacing: 24px;
-  padding:10px;
+
   height: 50vh;
   border: 5px solid gray;
-  background-color: #fff;
-  padding: 10px;
+  background-color: #5d5d5d;
+
+
+}
+#historytitle {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 4px 30px 0px rgba(0, 0, 0, 0.75);
+  margin-bottom: 10px;
+  position:relative;
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: 32px;
+  width: 35%;
+  left:30%;
+  height: 10%;
+
+  border-top: 3px solid black;
+  border-radius:3%;
+  color: #bebebe;
+  background-color: #4f4f4f;
+
 
 }
 #tablebox {
-  position:relative;
-  height:90%;
-  border: 5px solid red;
-  background-color: #fff;
-  padding: 10px;
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color:#bebebe;
   text-align: center;
+  font-size: 24px;
+  letter-spacing: 2px;
+  border-right: 3px solid black;
+  border-top: 3px solid black;
+  border-radius: 1%;
+  padding: 10px;
+  background-color: #484848;
+
+  width:65%;
+  left:15%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position:relative;
+  height:80%;
 }
+
+    .potid,
+    .win,
+    .pot {
+        padding:3px;
+        border-top: 1px solid gray;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .potid {
+      padding-right: 15px;
+      text-align: right;
+      width:10%;
+      border-right: 1px solid gray;
+    }
+    .win {
+    
+      
+      width:80%;
+
+    }
+    .pot {
+      padding-left:10px;
+      text-align: left;
+      border-left: 1px solid gray;
+      width:10%;
+
+    }
+
+
+
+
 
 .footer {
   background-color: #f1f1f1;
@@ -255,20 +349,20 @@ body {
 
 <div class="row">
 
-    <div class="column sidel" style="background-color:#aaa;"> 
+    <div class="column sidel"> 
       <div class="adr">QR ADRES INFO s1</div>
       <div class="chat">CHAT LIVE s2</div>
     </div>
 
 
-    <div class="column middle" style="background-color:#bbb;">
+    <div class="column middle">
       <div class="id"><span id="id"></span></div>
       <div class="timer"></div>
         <div id="spin"></div>
     </div>
 
 
-    <div class="column sider" style="background-color:#ccc;">
+    <div class="column sider">
       <div class="panel">PANEL LOGOWANIA/BET s2</div>
       <div class="prize"><div id="prize">$ 0</div></div>
       <div class="user"><div id="user">USERS</div></div>
@@ -277,9 +371,10 @@ body {
 
 </div>
 
-<div class="history">HISTORY
+<div class="history">
+<div id="historytitle">HISTORY</div>   
   <div id="tablebox">
-  
+    
   </div>
 
 </div>
