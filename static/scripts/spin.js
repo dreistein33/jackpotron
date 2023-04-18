@@ -1,8 +1,8 @@
 function placeLinesOnCircle(diameter, numLines) {
     const radius = diameter / 2;
     var lineContainer = $("#spin");
-    const centerX = -11;
-    const centerY = 45;
+    const centerX = 40;
+    const centerY = 93;
     const angleStep = 2 * Math.PI / numLines;
     console.log(window.innerWidth)
     for (let i = 0; i < numLines; i++) {

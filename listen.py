@@ -6,7 +6,7 @@ import lot
 import socketio
 import time
 db_obj = db.Database()
-from DB.models import insert
+# from DB.models import insert
 
 
 class Lottery:

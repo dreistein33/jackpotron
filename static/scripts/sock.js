@@ -37,12 +37,28 @@ function runTimer(endTime) {
 
         if (remainingSeconds < 0) {
             timerDiv.text("! DRAWING WINNER !");
+            if (winner.data = null) (
+            setTimeout(function() {
+                    location.reload();
+            }, 5000)); 
+
             clearInterval(intervalId);
         } else {
             remainingTime = moment.duration(remainingSeconds, "seconds");
             timerDiv.text("TO END " + remainingTime.minutes() + " M " + remainingTime.seconds() + " s");
         }
     }, 1000);
+    
+    		var clock;
+		
+		$(document).ready(function() {
+			
+			clock = $('.clock').FlipClock({
+                clockFace: 'MinuteCounter'
+            });
+
+            clock.setTime(remainingSeconds());
+		});
 }
   
 function buildFrontend() {
@@ -66,7 +82,7 @@ function buildFrontend() {
             if (!(data[i].winner == null)) {
                 var potidDiv = $("<div class='potid'></div>");
                 var winDiv = $("<div class='win'></div>");
-                var ref = $("<a href=https://shasta.tronscan.org/#/address/" + data[i].winner + ">" + data[i].winner +"</a>");
+                var ref = $("<a target=_blank href=https://shasta.tronscan.org/#/address/" + data[i].winner + ">" + ((data[i].winner).slice(0,16)) +"</a>");
                 winDiv.append(ref);
                 var potDiv = $("<div class='pot'></div>");
 
@@ -88,13 +104,7 @@ function buildFrontend() {
         console.log(data)
         if (data.status == "started") {
             console.log("started");
-            /* 
-            Aktualizuj dane:
-            Id
-            Users
-            Lines colors
-            Time end
-            */
+
         var winnerDiv = $("#winner");
         if (winnerDiv.text().length > 0) {
             winnerDiv.text("");
@@ -154,7 +164,7 @@ function buildFrontend() {
             // Set the text for each div.
             tagDiv.text("#" + us.sender.slice(0, 5));
             amountDiv.text("$ " + us.amount);
-            luckDiv.text("|%| " + (us.probability.toFixed(2) * 100));
+            luckDiv.text("|%| " + ((us.probability.toFixed(2) * 100).toFixed(2)));
 
             // Add the three divs to the new user div.
             newDiv.append(tagDiv);
@@ -164,6 +174,7 @@ function buildFrontend() {
             // Set the color for the "tag" class based on the "potColor" attribute
             var potColor = newDiv.attr("potColor");
             tagDiv.css("color", potColor);
+            tagDiv.css("border-left","8px solid", potColor)
             
             $("#user").append(newDiv);
             
@@ -183,7 +194,7 @@ function buildFrontend() {
                 // Set the text for each div.
                 tagDiv.text("#" + us.sender.slice(0, 5));
                 amountDiv.text("$ " + us.amount);
-                luckDiv.text("|%| " + (us.probability.toFixed(2) * 100));
+                luckDiv.text("|%| " + ((us.probability.toFixed(2) * 100).toFixed(2)));
                 
                 
                 existingDiv.appendTo("#user");
@@ -198,7 +209,7 @@ function buildFrontend() {
                 });
                 return total;
                 }
-                $("#prize").text("$ " + sumAmounts());
+                $("#prize").text(sumAmounts());
 
         colorLinesOnCircle(data.users);
         } 
@@ -210,10 +221,9 @@ function buildFrontend() {
             console.log("ended");
             colorAllLines();
             $("#timer").text("NEXT COMING")
-            $("#prize").text("$ 0");
+            $("#prize").text("");
             $("#user").text("USERS");
             $("#winner").text(data.winner)
-
 
             setTimeout(function() {
                 var winner = $("#winner").text();
@@ -221,10 +231,12 @@ function buildFrontend() {
                 // Animacja przyciemnienia tła
                 $("#overlay").fadeIn(500, function() {
                 // Animacja wyświetlenia komunikatu z wygranym
-                $("#winner").fadeIn(500).delay(5000).fadeOut(1000, function() {
+                $("#winner").fadeIn(1500).delay(5000).fadeOut(3000, function() {
                     // Animacja przywrócenia normalnego wyglądu strony
                     $("#overlay").fadeOut(1000);
-                    location.reload(); //Odswiezenie strony, mozliwe ze trzeba dodac opoznienie 
+                        setTimeout(function() {
+                        location.reload(); //Odswiezenie strony z 2 sekundowym opoznieniem
+                            }, 5000); 
                         });
                     });
                 
