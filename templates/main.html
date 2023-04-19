@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>__MAIN__</title>
-<link rel="icon" href="static\tronblacklogoico.svg" type="image/svg+xml" style= "animation"spin 2s linear infinite">
+<link rel="icon" href="static\tronblacklogoico.svg" type="image/svg+xml">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -40,7 +40,6 @@ h3 {    /* Czcionka firmowa */
   text-shadow:0px 0px 15px white, 0px 0px 20px #2c2c2c, 0px 0px 25px black, 0px 0px 10px #2c2c2c, 0px 20px 80px #195905,20px -20px 80px #f0B90B,-20px 0px 80px #2B65EC;
   color: #bebebe;
   letter-spacing: 9px;
-  background-color: black;
   padding: 0px;
   text-align: center;
   font-size: 40px;
@@ -67,7 +66,7 @@ h3 {    /* Czcionka firmowa */
 .xxxxxx {
   text-decoration: underline;
   left: 26vw;
-  top: 10vh;
+  top: 7vw;
   position: absolute;
   z-index:1;
   color:rgba(212,212,212,0.05);
@@ -106,9 +105,48 @@ h3 {    /* Czcionka firmowa */
   letter-spacing: 9px;
   background-color: black;
   padding: 0px;
+  padding-bottom:5px;
   text-align: center;
   font-size: 0px;
+  height:0vh;
+  
+  animation-duration: 5s; /* Czas trwania animacji */
+  animation-fill-mode: forwards;
+}
+/* Dodaj klasę .rollback na początek, aby ukryć header na początku */
+.header.rollback {
+  animation-name: rollback;
+}
 
+/* Dodaj klasę .slideIn na scroll, aby wysunąć header na górny brzeg strony */
+.header.rollin {
+  animation-name: rollin;
+}
+@keyframes rollback{
+  0% {
+    height:5vh;
+    font-size:28px;
+  }
+  20% {
+    height:4vh;
+    font-size:0px;
+  }
+  100% {
+    height:1vh;
+  }
+}
+@keyframes rollin {
+  0% {
+    height: 1vh;
+  }
+  80% {
+    height: 4vh;
+    font-size: 0px;
+  }
+  100% {
+    height: 5vh;
+    font-size:28px;
+  }
 }
 .column {
   float: left;
@@ -116,7 +154,6 @@ h3 {    /* Czcionka firmowa */
 }
 /* Styl dla zwyklych elementow */
 .adr,
-.chat,
 .panel,
 .prize,
 #prize {
@@ -172,7 +209,7 @@ h3 {    /* Czcionka firmowa */
       transition: all 0.3s ease;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       color:#bebebe;
-      text-align: center;
+      
       font-size: 2vh;
       letter-spacing: 0px;
       background-color: #1b1b1b;
@@ -185,6 +222,7 @@ h3 {    /* Czcionka firmowa */
       .potid,
       .win,
       .pot {
+        text-align: center;
         padding:3px;
         border-top: 1px solid gray;
         display: inline-block;
@@ -194,20 +232,21 @@ h3 {    /* Czcionka firmowa */
         letter-spacing: 0.4vh;
         text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9);
         color: #bebebe;
-        text-align: right;
-        width:15%;
+        
+        width:20%;
         border-right: 1px solid gray;
       }
       .win {
-        letter-spacing:0.5vh;
-        width:70%;
+        text-align:center;
+        letter-spacing:0.7vh;
+        width:60%;
       }
       .pot {
         font-weight: bold;
         color: green;
-        text-align: left;
+        
         border-left: 1px solid gray;
-        width:15%;
+        width:20%;
       }
 
 .column.sider {
@@ -236,9 +275,25 @@ h3 {    /* Czcionka firmowa */
       }
   .user {
     z-index:3;
-    height: 50vh;
+    height: 45vh;
     background-color: #242424;
   }
+    #usertitle {
+      padding-top: 0.7vh;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      box-shadow: 0px 5px 20px 2px rgba(212,212,212,0.7);
+      border-left: 0.1vh solid rgba(212,212,212,0.3);
+      border-right: 0.1vh solid rgba(212,212,212,0.3);
+      position:relative;
+      text-align: center;
+      font-size: 3vh;
+      letter-spacing: 0.3vw;
+      width: 90%;
+      left:5%;
+      height: 5vh;
+      color: #bebebe;
+      background-color: #2c2c2c;
+    }
     #user {
       text-shadow: 0px 0px 40px rgba(250, 250, 250, 0.5);
       color:#bebebe;
@@ -254,24 +309,29 @@ h3 {    /* Czcionka firmowa */
       .luck {
         letter-spacing: 2px;
         padding:3px;
-        border-top: 2px solid gray;
+        border-top: 3px solid #bfbfbf;
         display: inline-block;
         vertical-align: top;
       }
       .tag {
-        font-size:4.5vh;
+        font-size:5vh;
         letter-spacing: 0px;
         color:gray;
         text-align:left;
-        width:40%
+        width:45%
       }
       .amount {
+        font-size: 3.5vh;
+        font-weight:bold;
+        padding-top: 0.5vw;
+        text-shadow: 0px 0px 2px black, 1px 10px 15px rgba(0,140,0,0.8);
         top: 0.5vh;
-        color: #195905;
+        color: #118C4F;
         width:25%
       }
       .luck {
-        width:35%
+        padding-top: 0.5vw;
+        width:30%
       }
 
 .column.middle {
@@ -320,21 +380,21 @@ h3 {    /* Czcionka firmowa */
     }
       .id {
         cursor: pointer;
-        font-size: 42px;
+        font-size: 3vw;
       }
 
   .timer {
     margin-top: 1%;
     height: 10%;
     background-color: #101010;
-    padding: 10px;
   }
     #timer {
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9),0px 0px 10px rgba(240, 185, 22, 0.2),0px 0px 20px rgba(0, 0, 0, 0.5),0px 0px 15px rgba(0, 0, 0, 0.5),0px 0px 50px rgba(51, 51, 51, 0.5);
       letter-spacing: 10px;
+      font-weight: 50;
       color: #bebebe;
       height:100%;
-      font-size: 28px;
+      font-size: 3.5vw;
       background-color: #2c2c2c;
       padding: 10px;
     }
@@ -361,7 +421,9 @@ h3 {    /* Czcionka firmowa */
 
   #spin {
     z-index: 32;
-    animation: spin 30s ease-in infinite;
+    animation-name: spin;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
     margin-top:25vh;
     margin-left:18vw;
     border-radius:30%;
@@ -394,14 +456,35 @@ h3 {    /* Czcionka firmowa */
       transform-origin: center
     }
 .footer {
-  background-color: #f1f1f1;
-  padding: 10px;
+  margin-top:100vh;
+  height: 50vh;
+  background-color: #000000;
+
+  text-align: center;
+}
+#footer {
+  border:2vw solid #1b1b1b;
+  height:100%;
+  background-color: #2c2c2c;
+  padding: 25px;
   text-align: center;
 }
 
+
+
 @keyframes spin {
   0% {transform: rotate(0deg)}
-  100% {transform: rotate(360deg)}
+  10% {transform: rotate(360deg)}
+  20% {transform: rotate(720deg)}
+  30% {transform: rotate(1080deg)}
+  40% {transform: rotate(1440deg)}
+  50% {transform: rotate(1800deg)}
+  60% {transform: rotate(2160deg)}
+  70% {transform: rotate(2520deg)}
+  80% {transform: rotate(2880deg)}
+  90% {transform: rotate(3240deg)}
+  95% {transform: rotate(3500deg)}
+  100% {transform: rotate(3600deg)}
 }
 @keyframes rotateY {
   0% {
@@ -471,8 +554,11 @@ h3 {    /* Czcionka firmowa */
 /* Responsive layout */
 @media (max-width: 1200px) {
   .xxxxxx {
-    color: transparent;
-    top:120vh;
+    
+    font-size: 52vw;
+    left: 18.5vw;
+    top:110vh;
+    
   }
   #spin {
     margin-top:15%;
@@ -486,6 +572,12 @@ h3 {    /* Czcionka firmowa */
   }
 }
 @media (max-width: 600px) {
+  .xxxxxx {
+    font-size: 92vw;
+    left: -6vw;
+    top:120vh;
+    
+  }
   .column.sidel, .column.middle, .column.sider {
     width: 100%;
   }
@@ -503,13 +595,21 @@ h3 {    /* Czcionka firmowa */
     padding-top: 20px;
   }
 }
-
+@media (max-width: 420px) { /* NA MOBILE USTAWIENIA*/
+  .xxxxxx {
+    font-size: 100vw;
+    left: -2vw;
+    top:130vh;
+    
+  }
+}
 .tooltip {
   position: relative;
   display: inline-block;
 
 }
 .tooltip .tooltiptext {
+  
   visibility: hidden;
   width: 25vw;
   background-color: rgba(12,12,12,1);
@@ -528,7 +628,7 @@ h3 {    /* Czcionka firmowa */
   content: "";
   position: absolute;
   bottom: 100%;
-  left: 50%;
+  left: 48%;
   margin-left: -15px;
   border-width: 15px;
   border-style: solid;
@@ -558,6 +658,8 @@ h3 {    /* Czcionka firmowa */
   max-width: 600px;
 }
 .welcome-button {
+  border-radius: 3px;
+  border:0px solid white;
   width: 12vw;
   display: inline-block;
   margin-top: 10px;
@@ -574,11 +676,42 @@ h3 {    /* Czcionka firmowa */
     background-color: #df2c14;
   }
     .welcome-button.accept:hover {
+      
+      animation: acceptwave 1s infinite;
       background-color: #357a38;
     }
     .welcome-button.close:hover {
+      animation: closewave 2s infinite;
       background-color: #c61a09;
     }
+  @keyframes acceptwave {
+  0% {
+    border-color: black;
+    box-shadow: 0 0 15px black;
+  }
+  50% {
+    border-color: #2e6930;
+    box-shadow: 0 0 25px #2e6930;
+  }
+  100% {
+    border-color: black;
+    box-shadow: 0 0 15px black;
+  }
+  }
+  @keyframes closewave {
+  0% {
+    border-color: black;
+    box-shadow: 0 0 15px black;
+  }
+  50% {
+    border-color: #df2c14;
+    box-shadow: 0 0 25px #df2c14;
+  }
+  100% {
+    border-color: black;
+    box-shadow: 0 0 15px black;
+  }
+  }
 </style>
 </head>
 <body>
@@ -587,7 +720,7 @@ h3 {    /* Czcionka firmowa */
 </div>
 
 
-<div class="header">SP|N |MPER|UM [[TRX]] SP|N |MPER|UM
+<div class="header">SP|N |MPER|UM 
 </div>
 
 
@@ -641,28 +774,20 @@ h3 {    /* Czcionka firmowa */
     <h1>PANEL LOGOWANIA/BET s2</h1>
   </div>
   <div class="user">
-    <div id="user">USERS
+    <div id="usertitle">USER | BET | LUCK
+    </div>
+    <div id="user">
     </div>
   </div>
 </div>
 
-
-
-<div class="chat">
-  <h1>CHAT LIVE s2</h1>
-</div>
-
-
-<div class="history">
-<div id="historytitle">HISTORY</div>   
-  <div id="tablebox">
-  </div>
-</div>
-
-
 <div class="footer">
-  <p>FAQ/CONTACT/PROPOSITIONS
-  FUCK OFF IF YOU HAVE PROBLEM</p>
+  <div id="footer">
+  <h1>FAQ/CONTACT/PROPOSITIONS
+  </h1>
+  <h3>FUCK OFF IF YOU HAVE PROBLEM
+  </h3>
+  </div>
 </div>
 
 
@@ -721,7 +846,6 @@ if (welcomeAccepted === 'true') {
   </script>
 
 
-
 <script>
   // Info ,all elements that are 'live'
 var winnerDiv = $("<div id=winner></div>");
@@ -730,6 +854,7 @@ var timerDiv = $("<div id=timer></div>");
 $(".timer").append(timerDiv);
 var lastUsers = [];
 placeLinesOnCircle(380, 100);
+
 </script>
 
 
@@ -785,6 +910,7 @@ function toggleFullscreen() {
     }
 }
 </script>
+
 
 
 

@@ -3,7 +3,7 @@
 //Pokolorowanie lini na bialo
 function colorAllLines() {
     const lines = $("#spin .line");
-    lines.css({"backgroundColor": "#f5f5f5"});
+    lines.css({"backgroundColor": "#ffff0"});
 }
 //Pokolorowanie lini wedle szans uzytkownikow
 function colorLinesOnCircle(users) {
@@ -28,39 +28,34 @@ function colorLinesOnCircle(users) {
     }
 }
 
+
+
+var spin = document.querySelector("#spin");
 function runTimer(endTime) {
     var timerDiv = $("#timer");
     var endTimeMsMoment = moment.unix(endTime);
-
+    
+    // Calculate initial animation duration
+    var remainingSeconds = endTimeMsMoment.diff(moment(), "seconds");
+    var animationDuration = remainingSeconds + "s";
+    spin.style.setProperty("animation-duration", animationDuration);
+    console.log(animationDuration);
     intervalId = setInterval(function() {
-        var remainingSeconds = endTimeMsMoment.diff(moment(), "seconds");
+        remainingSeconds = endTimeMsMoment.diff(moment(), "seconds");
 
         if (remainingSeconds < 0) {
             timerDiv.text("! DRAWING WINNER !");
-            if (winner.data = null) (
-            setTimeout(function() {
-                    location.reload();
-            }, 5000)); 
-
             clearInterval(intervalId);
         } else {
             remainingTime = moment.duration(remainingSeconds, "seconds");
             timerDiv.text("TO END " + remainingTime.minutes() + " M " + remainingTime.seconds() + " s");
+            
+            // Update animation duration based on the initial value
+            spin.style.setProperty("animation-duration", animationDuration);
         }
     }, 1000);
-    
-    		var clock;
-		
-		$(document).ready(function() {
-			
-			clock = $('.clock').FlipClock({
-                clockFace: 'MinuteCounter'
-            });
-
-            clock.setTime(remainingSeconds());
-		});
 }
-  
+
 function buildFrontend() {
     const socket = io("ws://localhost:4998");
 
@@ -82,11 +77,11 @@ function buildFrontend() {
             if (!(data[i].winner == null)) {
                 var potidDiv = $("<div class='potid'></div>");
                 var winDiv = $("<div class='win'></div>");
-                var ref = $("<a target=_blank href=https://shasta.tronscan.org/#/address/" + data[i].winner + ">" + ((data[i].winner).slice(0,16)) +"</a>");
+                var ref = $("<a target=_blank href=https://shasta.tronscan.org/#/address/" + data[i].winner + ">" + ("#" + (data[i].winner).slice(0,12)) +"</a>");
                 winDiv.append(ref);
                 var potDiv = $("<div class='pot'></div>");
 
-                potidDiv.text("#" + data[i].id);
+                potidDiv.text(data[i].id);
                 potDiv.text("$ " + data[i].prize);
 
                 
@@ -94,9 +89,14 @@ function buildFrontend() {
                 tableDiv.append(winDiv);
                 tableDiv.append(potDiv);
         }
+            else {
+                // Update existing div.
+                console.log("HISTORY DATA UPDATED");
+        }
     }
         $("#tablebox").append(tableDiv);
         console.log(data);
+
     })
 
     // LIVE DATA
@@ -164,7 +164,7 @@ function buildFrontend() {
             // Set the text for each div.
             tagDiv.text("#" + us.sender.slice(0, 5));
             amountDiv.text("$ " + us.amount);
-            luckDiv.text("|%| " + ((us.probability.toFixed(2) * 100).toFixed(2)));
+            luckDiv.text("% " + ((us.probability.toFixed(2) * 100).toFixed(1)));
 
             // Add the three divs to the new user div.
             newDiv.append(tagDiv);
@@ -174,7 +174,9 @@ function buildFrontend() {
             // Set the color for the "tag" class based on the "potColor" attribute
             var potColor = newDiv.attr("potColor");
             tagDiv.css("color", potColor);
-            tagDiv.css("border-left","8px solid", potColor)
+            tagDiv.css("border-left","8px solid", potColor);
+            tagDiv.css("text-shadow","-5px 0px 10px", potColor);
+            
             
             $("#user").append(newDiv);
             
@@ -194,7 +196,7 @@ function buildFrontend() {
                 // Set the text for each div.
                 tagDiv.text("#" + us.sender.slice(0, 5));
                 amountDiv.text("$ " + us.amount);
-                luckDiv.text("|%| " + ((us.probability.toFixed(2) * 100).toFixed(2)));
+                luckDiv.text("% " + ((us.probability.toFixed(2) * 100).toFixed(1)));
                 
                 
                 existingDiv.appendTo("#user");
@@ -222,27 +224,32 @@ function buildFrontend() {
             colorAllLines();
             $("#timer").text("NEXT COMING")
             $("#prize").text("");
-            $("#user").text("USERS");
+            $("#user").text("BET LIST EMPTY");
             $("#winner").text(data.winner)
 
             setTimeout(function() {
                 var winner = $("#winner").text();
                 if (winner !== "") { // Sprawdzenie, czy winner nie jest pusty
-                // Animacja przyciemnienia tła
-                $("#overlay").fadeIn(500, function() {
-                // Animacja wyświetlenia komunikatu z wygranym
-                $("#winner").fadeIn(1500).delay(5000).fadeOut(3000, function() {
-                    // Animacja przywrócenia normalnego wyglądu strony
-                    $("#overlay").fadeOut(1000);
-                        setTimeout(function() {
-                        location.reload(); //Odswiezenie strony z 2 sekundowym opoznieniem
-                            }, 5000); 
+                    // Animacja przyciemnienia tła
+                    console.log("WINNER CHOISEN, RELOADING...");
+                    $("#overlay").fadeIn(500, function() {
+                        // Animacja wyświetlenia komunikatu z wygranym
+                        $("#winner").fadeIn(500).delay(3000).fadeOut(1000, function() {
+                            // Animacja przywrócenia normalnego wyglądu strony
+                            $("#overlay").fadeOut(500);
+                            setTimeout(function() {
+                                location.reload(); //Odświeżenie strony z 2 sekundowym opóźnieniem
+                            }, 5000);
                         });
                     });
-                
+                } 
+                else {
+                    console.log("NO WINNER, RELOADING..."); // Log w konsoli przy pustym winner
+                    setTimeout(function() {
+                        location.reload(); //Odświeżenie strony z 6 sekundowym opóźnieniem
+                    }, 10000);
                 }
-            }, 500);
-            
+            }, 1000);
         }
     });
 }
