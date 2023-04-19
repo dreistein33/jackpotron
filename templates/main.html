@@ -580,7 +580,7 @@ h3 {    /* Czcionka firmowa */
       background-color: #c61a09;
     }
   #qrcode {
-    position: inherit;
+    visibility: visible;
   }
 </style>
 </head>
@@ -596,6 +596,7 @@ h3 {    /* Czcionka firmowa */
 
 <div class="column sidel">
   <button id="adrbutton" class="adrbutton" onclick="transformButton()">[ INFO TAB ]
+    <img id ="qrcode">
   </button>
   <div class="history">
     <div id="historytitle">HISTORY
@@ -642,7 +643,6 @@ h3 {    /* Czcionka firmowa */
     <button class="fullscreen-button" onclick="toggleFullscreen()">_
     </button>
     <h1>PANEL LOGOWANIA/BET s2</h1>
-    <img id ="qrcode">
   </div>
   <div class="user">
     <div id="user">USERS
@@ -746,18 +746,21 @@ function transformButton() {
   // Pobranie elementów przycisku i boxa
   var box = document.querySelector(".history");
   var button = document.getElementById("adrbutton");
+  var qr = $("#qrcode");  
 
   // Sprawdzenie aktualnego stanu przycisku
   if (isTransformed) {
       //  OFF
       box.style.height = "90vh";
-      button.innerHTML = "[ INFO TAB ]";
+      button.textContent = "[ INFO TAB ]";
       button.style.height = "5vh";
       button.style.color = "#2d2d2d";
+      qr.css({"visibility": "hidden"});
+      
   } else {
       // ON
       box.style.height = "45vh";
-      button.innerHTML = "QR / INFO / ADRESS ";
+      button.textContent = "QR / INFO / ADRESS ";
       button.style.height = "50vh";
       button.style.color = "#f4f4f4";
       // Dodaj klasę "animate" do przycisku, aby uruchomić animację
@@ -766,6 +769,7 @@ function transformButton() {
       setTimeout(function () {
           button.classList.remove("animate");
       }, 1000);
+      qr.css({"visibility": "visible"});
   }
 
   // Zmiana stanu przycisku (toggle)
