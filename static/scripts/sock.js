@@ -28,6 +28,15 @@ function colorLinesOnCircle(users) {
     }
 }
 
+function generateQrCode(address, amount, memo) {
+    var wallet_url = `tron:${address}?token=TRX&amount=${amount}&note=${memo}`;
+    var qrContainer = $("#qrcode");
+    console.log(qrContainer);
+    qrContainer.attr("src", `https://api.qrcode-monkey.com/qr/custom?size=128&${encodeURIComponent(wallet_url)}`);
+
+    $(".panel").append(qrContainer);
+}
+
 function runTimer(endTime) {
     var timerDiv = $("#timer");
     var endTimeMsMoment = moment.unix(endTime);
@@ -106,7 +115,9 @@ function buildFrontend() {
         console.log(data)
         if (data.status == "started") {
             console.log("started");
-
+            var b64String = `data:image/png;base64,${data.qrcode}`;
+            $("#qrcode").attr("src", b64String);
+            console.log(data.qrcode);
         var winnerDiv = $("#winner");
         if (winnerDiv.text().length > 0) {
             winnerDiv.text("");
@@ -151,7 +162,6 @@ function buildFrontend() {
 
             return `rgb(${r}, ${g}, ${b})`;
             }
-
 
             const userColor = generateColor();
 
