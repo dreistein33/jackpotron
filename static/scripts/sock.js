@@ -76,23 +76,25 @@ function buildFrontend() {
     // HISTORY DATA
     socket.on("last", (data) => {
 
-        
+        var lastHistoryData;
         tableDiv = $("<div id=table></div>");
-        for (let i = data.length - 1; i >= 0; i--) {
-            if (!(data[i].winner == null)) {
-                var potidDiv = $("<div class='potid'></div>");
-                var winDiv = $("<div class='win'></div>");
-                var ref = $("<a target=_blank href=https://shasta.tronscan.org/#/address/" + data[i].winner + ">" + ((data[i].winner).slice(0,16)) +"</a>");
-                winDiv.append(ref);
-                var potDiv = $("<div class='pot'></div>");
+        if (lastHistoryData != data) {
+            for (let i = data.length - 1; i >= 0; i--) {
+                if (!(data[i].winner == null)) {
+                    var potidDiv = $("<div class='potid'></div>");
+                    var winDiv = $("<div class='win'></div>");
+                    var ref = $("<a target=_blank href=https://shasta.tronscan.org/#/address/" + data[i].winner + ">" + ((data[i].winner).slice(0,16)) +"</a>");
+                    winDiv.append(ref);
+                    var potDiv = $("<div class='pot'></div>");
 
-                potidDiv.text("#" + data[i].id);
-                potDiv.text("$ " + data[i].prize);
+                    potidDiv.text("#" + data[i].id);
+                    potDiv.text("$ " + data[i].prize);
 
-                
-                tableDiv.append(potidDiv);
-                tableDiv.append(winDiv);
-                tableDiv.append(potDiv);
+                    
+                    tableDiv.append(potidDiv);
+                    tableDiv.append(winDiv);
+                    tableDiv.append(potDiv);
+            }
         }
     }
         $("#tablebox").append(tableDiv);
