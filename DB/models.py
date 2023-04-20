@@ -104,12 +104,14 @@ def edit(table_name: str, id: int, column: str, new_val: Union[str, float]):
 
 def get(table_name: str, limit: int=1) -> list[Union[Loteria, Ticket]]:
     _model = define_model(table_name)
-    records = []
-    table = _model.select()
-    table_list = list(table)
-    table_len = len(table_list)
-    table_sorted = sorted(table_list, key=lambda obj: obj.id, reverse=True)
-    return table_sorted[:limit]
+    with db:
+        try:
+            table = _model.select()
+            table_list = list(table)
+            table_sorted = sorted(table_list, key=lambda obj: obj.id, reverse=True)
+            return table_sorted[:limit]
+        except Exception as e:
+            print(e)
 
 x = get("loteria", limit=2)
 print(x)

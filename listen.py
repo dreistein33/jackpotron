@@ -154,7 +154,7 @@ def try_push(name:str):
     while True:
         if len(get_fitable_txs()) > 0:
             for items in get_fitable_txs():
-                if not db_obj.is_pushed(name, ('timestamp', items['timestamp'])):
+                if not db_obj.is_pushed(name, ('timestamp', items['timestamp'])) and items['memo'].isdigit():
                     items['loteria_id'] = int(items['memo'])
                     # Add new transaction record to database.
                     db_obj.generic_create_record(name, items)
