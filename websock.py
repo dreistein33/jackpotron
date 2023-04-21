@@ -17,7 +17,10 @@ def get_data():
     lottery_obj = utils.assembly_lottery_with_users(db_obj, db_lottery['id'])
     lottery_obj.format_userlist()
 
+    qr = utils.generate_qr(lottery_obj.address, 0, lottery_obj.id)
+
     response = lottery_obj.__dict__
+    response["qrcode"] = qr
 
     emit("response", response, json=True, broadcast=True)
 

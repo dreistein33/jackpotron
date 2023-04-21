@@ -4,6 +4,7 @@ import lot
 import random
 
 
+
 def get_needed_data(db_obj):
     loteries = db_obj.get_table_data('loteria')
     if len(loteries) > 0:
@@ -14,6 +15,26 @@ def get_needed_data(db_obj):
         max_end_time = max(end_times)
         return memos, min_start_time, max_end_time
     
+
+def generate_qr(address: str, amount: float, memo: int) -> str:
+    import base64
+    from io import BytesIO
+    import qrcode
+
+    buffer = BytesIO()
+    wallet_url = f"tron:{address}?token=TRX&amount={amount}&note={memo}"
+    qr = qrcode.QRCode(version=1, box_size=4, border=1)
+    qr.add_data(wallet_url)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="gold", back_color="black")
+    img.save(buffer, format="PNG")
+
+    img_binary = buffer.getvalue()
+    img_base64 = base64.b64encode(img_binary).decode()
+
+    return img_base64
+
 
 def get_fitable_txs():
     wallet = lot.Wallet(lot.adr['base58check_address'])
