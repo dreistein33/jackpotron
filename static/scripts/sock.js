@@ -44,6 +44,9 @@ function colorLinesOnCircle(users) {
 var spin = document.querySelector("#spin");
 var beep = new Audio('static/aud/hitic.mp3');
 var beepx = new Audio('static/aud/lowtic.mp3');
+var last10 = new Audio('static/aud/10last.mp3');
+var last30 = new Audio('static/aud/30s.mp3');
+var last1 = new Audio('static/aud/last1.mp3');
 
 function runTimer(endTime) {
     var timerDiv = $("#timer");
@@ -67,13 +70,23 @@ function runTimer(endTime) {
             // Update animation duration based on the initial value
             spin.style.setProperty("animation-duration", animationDuration);
             
-            // Play sound effect every second for the last 10 seconds
-            if (remainingSeconds <= 15) {
+
+            if (remainingSeconds === 11) {
+                last10.play();
+            }
+            if (remainingSeconds === 31) {
+                last30.play();
+            }
+            if (remainingSeconds === 61) {
+                last1.play();
+            }
+            if (remainingSeconds <= 10) {
                 beep.play();
             }
-            if (remainingSeconds % 30 === 0) {
+            if (remainingSeconds % 60 === 0) {
                 beepx.play();
             }
+
 
         }
     }, 1000);
