@@ -1,5 +1,5 @@
 # MOZE KIEDYS COS Z TEGO WYCIAGNE XD
-
+# Jak to mowia chuj z tego jes porocz kilku kabli RJ36
 
 def is_profit(lot_obj: Lottery) -> bool:
     """

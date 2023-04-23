@@ -7,16 +7,22 @@ function toggleFullscreen() {
     var requestFullscreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
     var exitFullscreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
     if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        
         requestFullscreen.call(docEl);
     } else {
+        
         exitFullscreen.call(doc);
     }
 }
 
+
+
+
+
 //Pokolorowanie lini na bialo
 function colorAllLines() {
     const lines = $("#spin .line");
-    lines.css({"backgroundColor": "#ffff0"});
+    lines.css({"backgroundColor": "#999999"});
 }
 //Pokolorowanie lini wedle szans uzytkownikow
 function colorLinesOnCircle(users) {
@@ -40,6 +46,39 @@ function colorLinesOnCircle(users) {
         start = end;
     }
 }
+
+var soundOn = new Audio('static/aud/soundon.mp3');
+var audioEnabled = false;
+var audioToggle = document.querySelector("#mutebutton > img");
+var speakerOnImg = "static/imag/speaker.svg";
+var speakerOffImg = "static/imag/speakerx.svg";
+
+function toggleAudio() {
+  audioEnabled = !audioEnabled;
+  if (audioEnabled) {
+    beep.volume = 1;
+    beepx.volume = 1;
+    last10.volume = 1;
+    last30.volume = 1;
+    last1.volume = 1;
+    soundOn.volume = 1;
+    audioToggle.src = speakerOnImg;
+    soundOn.play();
+    console.log("SOUND ON")
+  } else {
+    beep.volume = 0;
+    beepx.volume = 0;
+    last10.volume = 0;
+    last30.volume = 0;
+    last1.volume = 0;
+    soundOn.volume = 0;
+    audioToggle.src = speakerOffImg;
+    console.log("SOUND OFF")
+  }
+}
+//DODAC ZEBY KLIKNIECIE NA STRONE GDZIE KOLWIEK ROWNIEZ WLACZALO DZWIEK BO OGL TAK JEST
+audioToggle.addEventListener("click", toggleAudio);
+
 
 var spin = document.querySelector("#spin");
 var beep = new Audio('static/aud/hitic.mp3');
@@ -96,9 +135,7 @@ function runTimer(endTime) {
 function generateQrCode(address, amount, memo) {
     var wallet_url = `tron:${address}?token=TRX&amount=${amount}&note=${memo}`;
     var qrContainer = $("#qrcode");
-    console.log(qrContainer);
     qrContainer.attr("src", `https://api.qrcode-monkey.com/qr/custom?size=128&${encodeURIComponent(wallet_url)}`);
-
     $("panel").append(qrContainer);
 }
 
@@ -170,6 +207,12 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
+function autoButton() {
+    setTimeout(transformButton, 2500);
+    setTimeout(transformButton, 10000);
+}
+
+
 
 
 
@@ -210,18 +253,15 @@ function buildFrontend() {
         }
     }
         $("#tablebox").append(tableDiv);
-        console.log(data);
 
     })
 
     // LIVE DATA
     socket.on("response", (data) => {
-        console.log(data)
         if (data.status == "started") {
             console.log("started");
             var b64String = `data:image/png;base64,${data.qrcode}`;
             $("#qrcode").attr("src", b64String);
-            console.log(data.qrcode);
         var winnerDiv = $("#winner");
         if (winnerDiv.text().length > 0) {
             winnerDiv.text("");
@@ -281,7 +321,7 @@ function buildFrontend() {
             // Set the text for each div.
             tagDiv.text("#" + us.sender.slice(0, 5));
             amountDiv.text("$ " + us.amount);
-            luckDiv.text("% " + ((us.probability.toFixed(2) * 100).toFixed(1)));
+            luckDiv.text("% " + ((us.probability.toFixed(3) * 100).toFixed(1)));
 
             // Add the three divs to the new user div.
             newDiv.append(tagDiv);
@@ -313,7 +353,7 @@ function buildFrontend() {
                 // Set the text for each div.
                 tagDiv.text("#" + us.sender.slice(0, 5));
                 amountDiv.text("$ " + us.amount);
-                luckDiv.text("% " + ((us.probability.toFixed(2) * 100).toFixed(1)));
+                luckDiv.text("% " + ((us.probability.toFixed(3) * 100).toFixed(1)));
                 
                 
                 existingDiv.appendTo("#user");
@@ -354,22 +394,21 @@ function buildFrontend() {
                         $("#winner").fadeIn(500).delay(3000).fadeOut(1000, function() {
                             // Animacja przywrócenia normalnego wyglądu strony
                             $("#overlay").fadeOut(500);
-                            setTimeout(function() {
-                                location.reload(); //Odświeżenie strony z 2 sekundowym opóźnieniem
-                            }, 5000);
-                        });
+                                                   });
                     });
+                    setTimeout(function() {
+                        location.reload()
+                }, 5000)
                 } 
                 else {
                     console.log("NO WINNER, RELOADING..."); // Log w konsoli przy pustym winner
-                    setTimeout(function() {
-                        location.reload(); //Odświeżenie strony z 6 sekundowym opóźnieniem
-                    }, 10000);
+                    
                 }
             }, 1000);
         }
     });
 }
+
 
 
 

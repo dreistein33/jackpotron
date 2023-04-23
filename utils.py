@@ -23,11 +23,11 @@ def generate_qr(address: str, amount: float, memo: int) -> str:
 
     buffer = BytesIO()
     wallet_url = f"tron:{address}?token=TRX&amount={amount}&note={memo}"
-    qr = qrcode.QRCode(version=1, box_size=4, border=1)
+    qr = qrcode.QRCode(version=1, box_size=5, border=0)
     qr.add_data(wallet_url)
     qr.make(fit=True)
 
-    img = qr.make_image(fill_color="gold", back_color="black")
+    img = qr.make_image(fill_color="#F0B90B", back_color="#1b1b1b")
     img.save(buffer, format="PNG")
 
     img_binary = buffer.getvalue()

@@ -8,10 +8,10 @@ push_thread.daemon = True; push_thread.start()
 
 while True:
     try:
-        id = listen.create_lottery(_minutes=5)
+        id = listen.create_lottery(_minutes=15)
         if id is not None:
             listen.await_jackpot(id)
-            time.sleep(3)
+            time.sleep(1)
             # Dodac time.sleep(x) zeby zgadzalo sie z animacja na frotenedzie
         
     except KeyboardInterrupt:

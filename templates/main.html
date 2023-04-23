@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>__MAIN__</title>
-<link rel="icon" href="static\tronblacklogoico.svg" type="image/svg+xml">
+<link rel="icon" href="static\imag\tronblacklogoico.svg" type="image/svg+xml">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -19,12 +19,13 @@ yelloe(darker):  #F0B946
   box-sizing: border-box;
 }
 a {
-  font-size: 2vh;
+  font-size: 1vw;
   text-shadow: 0px 0px 5px rgb(240, 185, 11);
   color: rgba(240, 185, 22, 0.7) ;
   text-decoration: none;
 }
 body {
+  margin: 0px;
   overflow-x: hidden;
   background-color: black;
   font-family: Arial, Helvetica, sans-serif;
@@ -77,7 +78,7 @@ h3 {    /* Czcionka firmowa */
   top: 7vw;
   position: absolute;
   z-index:1;
-  color:rgba(212,212,212,0.05);
+  color:rgba(212,212,212,0.00001);
   font-size: 40vw; /* 66vh */
   text-shadow: 0px 0px 500px rgba(212,212,212,0.7);
 }
@@ -157,6 +158,9 @@ h3 {    /* Czcionka firmowa */
   }
 }
 .column {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
   float: left;
   height: 100vh;
 }
@@ -187,9 +191,7 @@ h3 {    /* Czcionka firmowa */
     width: 100%;
     margin-left:0%;
     height: 5vh;
-
   }
-
   .history {
     font-weight: bold;
     transition: all 1.5s ease;
@@ -245,6 +247,7 @@ h3 {    /* Czcionka firmowa */
         border-right: 1px solid gray;
       }
       .win {
+
         text-align:center;
         letter-spacing:0.7vh;
         width:60%;
@@ -257,93 +260,122 @@ h3 {    /* Czcionka firmowa */
       }
 
 .column.sider {
-  z-index:2;
+  z-index:30;
   width: 25%;
 }
   .panel {
     height: 50vh;
     background-color: #646464;
   }
+    #mutebutton {
+      transition: all 0.5s ease;
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      background-color: #2c2c2c;
+      border: 0px;
+      margin-right:3px;
+      float:right;
+    }
+    #mutebutton:hover {
+      background-color: rgba(180,180,180,0.8);
+    }
     .fullscreen-button {
-      color: #bebebe;
+      transition: all 0.5s ease;
+      height: 40px;
+      width: 40px;
       background-color: #2c2c2c;
       text-align:center;
       padding:0px; /*Przez to ze to button musi on miec podstawowo wyzerowane wartosci */
-      padding-bottom:0px;
       border: 0px;
-      font-size: 30px;
       cursor: pointer;
       float: right;
-      width: 40px; 
     }
       .fullscreen-button:hover {
-        color: rgba(41,41,200,0.3);
-        background-color: rgba(11,11,88,0.3);
+        background-color: rgba(180,180,180,0.8);
       }
   .user {
-    z-index:3;
     height: 45vh;
     background-color: #242424;
   }
-    #usertitle {
-      padding-top: 0.7vh;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      box-shadow: 0px 5px 20px 2px rgba(212,212,212,0.7);
-      border-left: 0.1vh solid rgba(212,212,212,0.3);
-      border-right: 0.1vh solid rgba(212,212,212,0.3);
-      position:relative;
-      text-align: center;
-      font-size: 3vh;
-      letter-spacing: 0.3vw;
-      width: 90%;
-      left:5%;
+
+    .usertitle {
+      background-color: #1b1b1b;
       height: 5vh;
-      color: #bebebe;
-      background-color: #2c2c2c;
+      width:100%;
+      border: 0px;
+      padding: 0px;
+      margin: 0px;
     }
+    #tagtitle,
+    #amounttitle,
+    #lucktitle {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      box-shadow: 0px 10px 50px 1px rgba(212,212,212,0.7);
+      color: #bebebe;
+      padding-top:2%;
+      padding-left: 2%;
+      font-size: 1.5vw;
+      height: 100%;
+      display: inline-block;
+      text-align: left;
+      background-color: #2b2b2b;
+    }
+
+      #tagtitle {
+        margin-left: 1.5%;
+        width:45%
+      }
+      #amounttitle {
+        width:25%
+      }
+      #lucktitle {
+        width:25%
+      }
+
+
     #user {
       text-shadow: 0px 0px 40px rgba(250, 250, 250, 0.5);
       color:#bebebe;
       height:100%;
       text-align:center;
       letter-spacing: 10px;
-      padding: 10px;
-      font-size:3vh;
+      padding: 0px;
+      font-size:1.5vw;
       background-color: #2c2c2c;
     }
+
         .tag,
       .amount,
       .luck {
-        letter-spacing: 2px;
-        padding:3px;
+        text-align:left;
+        letter-spacing: 0px;
         border-top: 3px solid #bfbfbf;
         display: inline-block;
         vertical-align: top;
       }
       .tag {
-        font-size:5vh;
-        letter-spacing: 0px;
+        font-size:2.8vw;
         color:gray;
-        text-align:left;
-        width:45%
+        width:47%
       }
       .amount {
-        font-size: 3.5vh;
+        font-size: 1.5vw;
         font-weight:bold;
         padding-top: 0.7vw;
         text-shadow: 0px 0px 2px black, 1px 1px 15px rgba(0,140,0,0.8);
         top: 0.5vh;
         color: #118C4F;
-        width:25%
+        width:26.5%
       }
       .luck {
         text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5), 1px 1px 15px rgba(0, 0, 0, 1);
         padding-top: 0.8vw;
-        width:30%
+        width:26.5%
       }
 
 .column.middle {
-  z-index:20;
+  z-index:30;
   background-color: black;
   text-align: center;
   width: 50%;
@@ -366,25 +398,27 @@ h3 {    /* Czcionka firmowa */
       color: #bebebe;
     }
     .number {
-      padding-left:100px;
-      padding-top: 10px;
+      border-right: 1px solid red;
+      padding-left:2vw;
+      padding-top: 0.1vh;
       font-size: 1.4vw;
       float:left;
-      width: 30%;
+      width: 20%;
     }
     .numberr {
+      border-left: 1px solid red;
       text-align:left;
-      padding-top: 10px;
+      padding-top: 0.1vh;
       font-size: 1.2vw;
       float:right;
-      width: 30%;
+      width: 20%;
     }
     .idd {
       text-shadow: 0px 0px 100px rgba(240, 185, 22, 0.7);
       font-weight:700;
       letter-spacing: 15px;
       text-align: center;
-      width:40%;
+      width:60%;
     }
       .id {
         cursor: help;
@@ -402,7 +436,7 @@ h3 {    /* Czcionka firmowa */
       font-weight: 50;
       color: #bebebe;
       height:100%;
-      font-size: 3.5vw;
+      font-size: 3vw;
       background-color: #2c2c2c;
       padding: 10px;
     }
@@ -423,15 +457,15 @@ h3 {    /* Czcionka firmowa */
       color:#195905;
       height:100%;
       text-align:center;
-      font-size: 16vh;
+      font-size: 8vw;
       background-color: none;
     }
 
   #spin {
     z-index: 32;
-    animation-duration: 60s;
+    
     animation-name: spin;
-    animation-timing-function: linear;
+    animation-timing-function: ease-out;
     animation-fill-mode: forwards;
     margin-top:25vh;
     margin-left:18vw;
@@ -483,17 +517,7 @@ h3 {    /* Czcionka firmowa */
 
 @keyframes spin {
   0% {transform: rotate(0deg)}
-  10% {transform: rotate(360deg)}
-  20% {transform: rotate(720deg)}
-  30% {transform: rotate(1080deg)}
-  40% {transform: rotate(1440deg)}
-  50% {transform: rotate(1800deg)}
-  60% {transform: rotate(2160deg)}
-  70% {transform: rotate(2520deg)}
-  80% {transform: rotate(2880deg)}
-  90% {transform: rotate(3240deg)}
-  95% {transform: rotate(3500deg)}
-  100% {transform: rotate(3600deg)}
+  100% {transform: rotate(360deg)}
 }
 @keyframes rotateY {
   0% {
@@ -710,8 +734,8 @@ h3 {    /* Czcionka firmowa */
   }
   }
 @keyframes leftjump {
-  from {margin-left:-15vw;}
-  to {margin-left:7vw;}
+  from {margin-left:-15vw;opacity:0;}
+  to {margin-left:6vw;opacity:1;}
 }
 
   .infobox {
@@ -805,13 +829,20 @@ h3 {    /* Czcionka firmowa */
 
 <div class="column sider">
   <div class="panel">
-    <button class="fullscreen-button" onclick="toggleFullscreen()">_
+    <button class="fullscreen-button" onclick="toggleFullscreen()">
+    <img src="static/imag/full.svg">
+    </button>
+    <button id="mutebutton">
+    <img src="static/imag/speakerx.svg"/>
     </button>
     <h1>PANEL LOGOWANIA/BET s2</h1>
-    <h1>Dodane zostaly dzwieki, ale przez zjebana polityke trzeba cokolwiek kliknac na stronie zeby sie odtwarzaly</h1>
+    <h1>GUNGU GINGGA WEZ SE PISZ NA ELEMENTACH CO CHCES ZMIENIC I SUGESTIE</h1>
   </div>
   <div class="user">
-    <div id="usertitle">USER | BET | LUCK
+    <div class="usertitle">
+    <div id="tagtitle">USER</div>
+    <div id="amounttitle">BET</div>
+    <div id="lucktitle">LUCK</div>
     </div>
     <div id="user">
     </div>
@@ -889,19 +920,10 @@ var timerDiv = $("<div id=timer></div>");
 $(".timer").append(timerDiv);
 var lastUsers = [];
 placeLinesOnCircle(380, 100);
-
+autoButton();
 </script>
 
 <script>
-
-chrome.permissions.request({ permissions: ['audio'] }, function(granted) {
-  if (granted) {
-    // użytkownik udzielił zezwolenia na odtwarzanie dźwięku
-  } else {
-    // użytkownik nie udzielił zezwolenia na odtwarzanie dźwięku
-  }
-});
-
 
 </script>
 

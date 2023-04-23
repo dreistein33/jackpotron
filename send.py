@@ -19,8 +19,8 @@ for i in range(num_repetitions):
     curid = str(current_id)
     print(curid)   # Add id and i together
     print(w1.send_tx(address, 1, curid))
-    print(w2.send_tx(address, 1, curid)) 
-    print(w3.send_tx(address, 1, curid))
+    print(w2.send_tx(address, 2, curid)) 
+    print(w3.send_tx(address, 3, curid))
 
 # pierwszy arg to id obecne
 # drugi arg to multipler nie wiem czemu powyzej 9 nie dziala prawidlowo

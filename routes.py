@@ -43,7 +43,7 @@ def show_lottery_details(id):
     qr.add_data(qr_data)
     qr.make(fit=True)
 
-    img = qr.make_image(fill_color="gold", back_color="black")
+    img = qr.make_image(fill_color="#F0B90B", back_color="#2c2c2c")
     img.save(buffer, format="PNG")
     qr_png = buffer.getvalue()
     qr_base64 = base64.b64encode(qr_png).decode()
