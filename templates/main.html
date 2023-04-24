@@ -56,7 +56,7 @@ h3 {    /* Czcionka firmowa */
 /* Ustaw tło paska przewijania */
 ::-webkit-scrollbar {
   width:8px;
-  background-color: ;
+  background-color: none;
 }
 /* Ustaw kolor wypełnienia obszaru poza paskiem przewijania */
 ::-webkit-scrollbar-track {
@@ -65,12 +65,13 @@ h3 {    /* Czcionka firmowa */
 /* Ustaw kolor paska przewijania */
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  border:1px solid #101010;
-  background-color: #2B313A;
+  border: 1px solid #1b1b1b;
+  background-color: #484848;
 }
           /* Ustaw kolor paska przewijania podczas najechania */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #2F363E;
+  border: 1px solid #0e0e0e;
+  background-color: #646464;
 }
 .xxxxxx {
   cursor: default;
@@ -85,6 +86,7 @@ h3 {    /* Czcionka firmowa */
 }
     /* Przyciemnienie strony */
 #overlay {
+  transition: all 3s ease;
   position: fixed;
   top: 0;
   left: 0;
@@ -181,14 +183,12 @@ h3 {    /* Czcionka firmowa */
     padding:1px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     border: none;
-    border-left: 0.1vh solid rgba(212,212,212,0.3);
-    border-right: 0.1vh solid rgba(212,212,212,0.3);
     cursor: pointer;
     transition: all 2s ease;
     color: #bebebe;
     font-weight: bold;
     letter-spacing: 0.5vw;
-    font-size: 3vh;
+    font-size: 2.5vh;
     background: #2c2c2c;
     width: 100%;
     margin-left:0%;
@@ -206,8 +206,6 @@ h3 {    /* Czcionka firmowa */
       padding-top: 0.7vh;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       box-shadow: 0px 10px 50px 1px rgba(212,212,212,0.7);
-      border-left: 0.1vh solid rgba(212,212,212,0.3);
-      border-right: 0.1vh solid rgba(212,212,212,0.3);
       position:relative;
       text-align: center;
       font-size: 3vh;
@@ -249,14 +247,14 @@ h3 {    /* Czcionka firmowa */
         border-right: 1px solid gray;
       }
       .win {
-
         text-align:center;
         letter-spacing:0.7vh;
         width:60%;
       }
       .pot {
+        text-align: left;
         font-weight: bold;
-        color: green;
+        color: #6aa000;
         border-left: 1px solid gray;
         width:20%;
       }
@@ -271,6 +269,7 @@ h3 {    /* Czcionka firmowa */
     background-color: #646464;
   }
     #mutebutton {
+      border-radius: 3px;
       transition: all 0.5s ease;
       height: 40px;
       width: 40px;
@@ -284,6 +283,7 @@ h3 {    /* Czcionka firmowa */
       background-color: rgba(180,180,180,0.8);
     }
     .fullscreen-button {
+      border-radius: 3px;
       transition: all 0.5s ease;
       height: 40px;
       width: 40px;
@@ -297,6 +297,26 @@ h3 {    /* Czcionka firmowa */
       .fullscreen-button:hover {
         background-color: rgba(180,180,180,0.8);
       }
+    #highest-prize, #total-prize {
+      font-size: 2.1vh;
+      text-align: center;
+      font-weight: 900;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 2px 2px 8px rgba(222, 222, 222, 0.5);
+      display: inline-block;
+      letter-spacing: 0.2vw;
+      color: #6ad000;
+      background-color: #1b1b1b;
+      opacity: 0.75;
+      
+      width: 50%;
+      }
+    #highest-prize {
+      border: 1px solid #2c2c2c;
+
+    }
+    #total-prize {
+      border: 1px solid #2c2c2c;
+    }
   .user {
     height: 45vh;
     background-color: #242424;
@@ -309,6 +329,9 @@ h3 {    /* Czcionka firmowa */
       border: 0px;
       padding: 0px;
       margin: 0px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: row;
     }
     #tagtitle,
     #amounttitle,
@@ -317,23 +340,21 @@ h3 {    /* Czcionka firmowa */
       box-shadow: 0px 10px 50px 1px rgba(212,212,212,0.7);
       color: #bebebe;
       padding-top:2%;
-      padding-left: 2%;
+      padding-left: 0.8vw;
       font-size: 1.5vw;
       height: 100%;
-      display: inline-block;
       text-align: left;
       background-color: #2b2b2b;
     }
 
       #tagtitle {
-        margin-left: 1.5%;
-        width:45%
+        width:47%
       }
       #amounttitle {
-        width:25%
+        width:26.5%
       }
       #lucktitle {
-        width:25%
+        width:26.5%
       }
 
 
@@ -358,22 +379,25 @@ h3 {    /* Czcionka firmowa */
         vertical-align: top;
       }
       .tag {
+        padding-left: 0.1vw;
         font-size:2.8vw;
         color:gray;
         width:47%
       }
       .amount {
+        padding-left: 1vw;
         font-size: 1.5vw;
         font-weight:bold;
-        padding-top: 0.7vw;
+        padding-top: 1.7vh;
         text-shadow: 0px 0px 2px black, 1px 1px 15px rgba(0,140,0,0.8);
         top: 0.5vh;
-        color: #118C4F;
+        color: #60c000;
         width:26.5%
       }
       .luck {
+        padding-left: 0.2vw;
         text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5), 1px 1px 15px rgba(0, 0, 0, 1);
-        padding-top: 0.8vw;
+        padding-top: 1.8vh;
         width:26.5%
       }
 
@@ -396,14 +420,13 @@ h3 {    /* Czcionka firmowa */
       display:inline-block;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       vertical-align: top;
-      text-align: center;
       height:100%;
       background-color: #2c2c2c;
       color: #bebebe;
     }
     .number {
-      padding-left:2vw;
-      padding-top: 0.1vh;
+      text-align: right;
+      padding-top: 1.1vh;
       font-size: 1.4vw;
       float:left;
       width: 20%;
@@ -428,7 +451,6 @@ h3 {    /* Czcionka firmowa */
       }
 
   .timer {
-    margin-top: 1%;
     height: 10%;
     background-color: #101010;
   }
@@ -441,18 +463,20 @@ h3 {    /* Czcionka firmowa */
       font-size: 3vw;
       background-color: #2c2c2c;
       padding: 10px;
+      padding-top: 20px;
     }
 
   .prize {
+    animation: blink 3s ease-in-out infinite;
     margin-top: 26vh;
     height:20vh;
     background-color: none;
     padding:0px;
   }
     #prize {
-      animation: blink 4s ease infinite;
+      animation: hopout 6s ease infinite;
       font-family: Garamond, serif;
-      font-weight: 100;
+      font-weight: 900;
       position: relative;
       z-index:31;
       text-shadow: 0px 5px 50px rgba(0, 51, 0, 0.9), 0px 0px 200px rgba(51, 51, 0, 0.5);
@@ -575,6 +599,14 @@ h3 {    /* Czcionka firmowa */
   100% {
     opacity: 1;
   }
+}
+@keyframes hopout {
+  0% {scale:1;transform:rotate(0deg)}
+  10% {scale:0;transform:rotate(-360deg)}
+  40% {scale:1;transform:rotate(0deg)}
+  50% {scale:0;transform:rotate(0deg)}
+  70% {scale:2;transform:rotate(-720deg)}
+  100% {scale:1;transform:rotate(0deg)}
 }
 /* Responsive layout */
 @media (max-width: 800px) {
@@ -770,13 +802,66 @@ h3 {    /* Czcionka firmowa */
     background-color: #2b2b2b;
     color: #1a1a1a;
   }
+  @keyframes stepdown {
+    0% {background-color: rgba(0, 0, 0, 0.99);
+    }
+    100% {background-color: rgba(0, 0, 0, 0.0);
+    }
+  }
+  @keyframes stepdownn {
+    0% {background-color: rgba(0, 0, 0, 0.99);
+    }
+    100% {background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+#step1 {
+  animation: stepdownn 5s ease forwards;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 75%;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.99); /* left side show up */
+  z-index: 999; 
+  display:none;
+}
+#step2 {
+  animation: stepdownn 5s ease forwards;
+  animation-delay: 5s;
+  position: fixed;
+  top: 0;
+  left: 75%;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.99); /* left side show up */
+  z-index: 999;
+  display:none;
+}
+#step3 {
+  animation: stepdown 5s ease forwards;
+  animation-delay: 10s;
+  position: fixed;
+  top: 20%;     /*Animacja pokazanie gornego paska, zjechanie na 100% zeby odslonic kolo*/
+  left: 25%;
+  right: 25%;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.99); /* middle shadow */
+  z-index: 999; 
+  display:none;
+}
+
 </style>
 </head>
 <body>
 
 <div id="overlay">
 </div>
-
+<div id="step1">
+</div>
+ <div id="step2">
+</div>
+<div id="step3">
+</div>
 
 <div class="header">SP|N |MPER|UM 
 </div>
@@ -819,6 +904,11 @@ h3 {    /* Czcionka firmowa */
     </div>
   </div>
   <div class="timer">
+    <div class="tooltip">
+      <span class="tooltiptext">
+      <h1>Time to drawing/Time to next game</h1>
+      </span>
+    </div>
   </div>
   <div id="spin">
   </div>
@@ -844,7 +934,7 @@ h3 {    /* Czcionka firmowa */
   </div>
   <div class="user">
     <div class="usertitle">
-    <div id="tagtitle">USER</div>
+    <div id="tagtitle">#USER</div>
     <div id="amounttitle">BET</div>
     <div id="lucktitle">LUCK</div>
     </div>

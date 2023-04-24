@@ -76,16 +76,21 @@ function toggleAudio() {
     console.log("SOUND OFF")
   }
 }
-//DODAC ZEBY KLIKNIECIE NA STRONE GDZIE KOLWIEK ROWNIEZ WLACZALO DZWIEK BO OGL TAK JEST
+
 audioToggle.addEventListener("click", toggleAudio);
 
 
 var spin = document.querySelector("#spin");
 var beep = new Audio('static/aud/hitic.mp3');
+beep.volume = 0;
 var beepx = new Audio('static/aud/lowtic.mp3');
+beepx.volume = 0;
 var last10 = new Audio('static/aud/10last.mp3');
+last10.volume = 0;
 var last30 = new Audio('static/aud/30s.mp3');
+last30.volume = 0;
 var last1 = new Audio('static/aud/last1.mp3');
+last1.volume = 0;
 
 function runTimer(endTime) {
     var timerDiv = $("#timer");
@@ -232,10 +237,24 @@ function buildFrontend() {
     socket.on("last", (data) => {
 
         var lastHistoryData;
+
+        var highestPrize = 0;
+        var totalPrize = 0;
+
+        var highestPrizeDiv = $("<div id=highest-prize></div>");
+        var totalPrizeDiv = $("<div id=total-prize></div>");
+
+
+
         tableDiv = $("<div id=table></div>");
         if (lastHistoryData != data) {
             for (let i = data.length - 1; i >= 0; i--) {
                 if (!(data[i].winner == null)) {
+                    if (data[i].prize > highestPrize) {
+                    highestPrize = data[i].prize;
+                    highestPrizeDiv.text("TOP $ " + highestPrize);
+                }
+                    totalPrize += data[i].prize;
                     var potidDiv = $("<div class='potid'></div>");
                     var winDiv = $("<div class='win'></div>");
                     var ref = $("<a target=_blank href=https://shasta.tronscan.org/#/address/" + data[i].winner + ">" + ((data[i].winner).slice(0,12)) +"</a>");
@@ -244,7 +263,7 @@ function buildFrontend() {
 
                     potidDiv.text(data[i].id);
                     potDiv.text("$ " + data[i].prize);
-
+                    totalPrizeDiv.text("SUM $ " + totalPrize);
                     
                     tableDiv.append(potidDiv);
                     tableDiv.append(winDiv);
@@ -253,6 +272,8 @@ function buildFrontend() {
         }
     }
         $("#tablebox").append(tableDiv);
+        $(".panel").append(highestPrizeDiv);
+        $(".panel").append(totalPrizeDiv);
 
     })
 
