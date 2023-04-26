@@ -220,37 +220,37 @@ function autoButton() {
 
 const levels = [
   {
-    level: "TIER I",
+    level: "I",
     leftValue: "1 >",
     rightValue: "< 10",
   },
   {
-    level: "TIER II",
+    level: "II",
     leftValue: "11 >",
     rightValue: "< 100",
   },
   {
-    level: "TIER III",
+    level: "III",
     leftValue: "101 >",
     rightValue: "< 1k",
   },
   {
-    level: "TIER IV",
+    level: "IV",
     leftValue: "1k+1 >",
     rightValue: "< 10k",
   },
   {
-    level: "TIER V",
+    level: "V",
     leftValue: "10k+1 >",
     rightValue: "< 100k",
   },
   {
-    level: "TIER VI",
+    level: "VI",
     leftValue: "100k+1 >",
     rightValue: "< 1m",
   },
   {
-    level: "TIER VII",
+    level: "VII",
     leftValue: "1m+1>",
     rightValue: "< Unlimited",
   },
@@ -261,56 +261,75 @@ const tierLevelElement = document.getElementById("tier-level");
 const leftTierButton = document.getElementById("left-tier-button");
 const rightTierButton = document.getElementById("right-tier-button");
 
-let currentLevelIndex = Number(localStorage.getItem(LEVEL_LOCAL_STORAGE_KEY)) || 0;
-updateUIForCurrentLevel();
+window.addEventListener("load", function() {
+  let currentLevelIndex = Number(localStorage.getItem(LEVEL_LOCAL_STORAGE_KEY)) || 0;
+  updateUIForCurrentLevel();
 
-// DOWN
-leftTierButton.addEventListener("click", () => {
-  if (currentLevelIndex > 0) {
-    currentLevelIndex--;
-    updateUIForCurrentLevel();
-    localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
-  }
-});
-
-// UP
-rightTierButton.addEventListener("click", () => {
-  if (currentLevelIndex < levels.length - 1) {
-    currentLevelIndex++;
-    updateUIForCurrentLevel();
-    localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
-  }
-});
-
-// COMMA
-document.addEventListener("keydown", (event) => {
-  if (event.key === ",") {
+  leftTierButton.addEventListener("click", () => {
     if (currentLevelIndex > 0) {
       currentLevelIndex--;
       updateUIForCurrentLevel();
       localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
     }
-  }
-});
+  });
 
-// PERIOD
-document.addEventListener("keydown", (event) => {
-  if (event.key === ".") {
+  rightTierButton.addEventListener("click", () => {
     if (currentLevelIndex < levels.length - 1) {
       currentLevelIndex++;
       updateUIForCurrentLevel();
       localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
     }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === ",") {
+      if (currentLevelIndex > 0) {
+        currentLevelIndex--;
+        updateUIForCurrentLevel();
+        localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
+      }
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === ".") {
+      if (currentLevelIndex < levels.length - 1) {
+        currentLevelIndex++;
+        updateUIForCurrentLevel();
+        localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
+      }
+    }
+  });
+
+  function updateUIForCurrentLevel() {
+    const currentLevel = levels[currentLevelIndex];
+    tierLevelElement.textContent = "";
+
+    animateText(currentLevel.level, tierLevelElement);
+
+    // animate left button
+    leftTierButton.textContent = "";
+    animateText(currentLevel.leftValue, leftTierButton);
+
+    // animate right button
+    rightTierButton.textContent = "";
+    animateText(currentLevel.rightValue, rightTierButton);
+}
+
+
+  function animateText(text, element) {
+    let index = 0;
+    const intervalId = setInterval(function() {
+      if (index < text.length) {
+        element.innerHTML += text.charAt(index);
+        index++;
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 50);
   }
 });
 
-
-function updateUIForCurrentLevel() {
-  const currentLevel = levels[currentLevelIndex];
-  tierLevelElement.textContent = currentLevel.level;
-  leftTierButton.textContent = currentLevel.leftValue;
-  rightTierButton.textContent = currentLevel.rightValue;
-}
 
 
 function buildFrontend() {

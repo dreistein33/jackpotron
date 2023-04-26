@@ -12,3 +12,14 @@ nr + RANGE + NAME + ALTERNATIVE NAME + (A)
 ZGODNIE Z TYM ROZPISEM KAZDY BET 1 V 1 NIE MOZE WYNIESC WIECEJ NIZ 90% PRZEWAGI
 MOZNA UZYWAC JEDNEGO ID, TYLE ILE ZOSTANIE WYSLANE NA TAKIEGO BETA WCHODZI USER
 
+window.addEventListener("load", function() {
+  var tekst = document.getElementById("tekst");
+  var napis = "1 2 3";
+  var index = 0;
+  setInterval(function() {
+    if (index < napis.length) {
+      tekst.innerHTML += napis.charAt(index);
+      index++;
+    }
+  }, 100);
+});

@@ -401,6 +401,8 @@ h3 {    /* Czcionka firmowa */
       }
 
 .column.middle {
+  border-left: 1px solid #0c0c0c;
+  border-right: 1px solid #0c0c0c;
   overflow: hidden;
   z-index:30;
   background-color: black;
@@ -448,14 +450,11 @@ h3 {    /* Czcionka firmowa */
         cursor: help;
         font-size: 3vw;
       }
-  .tier {
-    border-top: 3px solid #646464;
-    border-bottom: 3px solid #646464;
-    height:10%;
-  }
 
-  .tier-wrapper {
-  height: 10%;
+.tier-wrapper {
+  border-top: 2px solid #646464;
+  border-bottom: 2px solid #646464;
+  height: 12%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -479,12 +478,30 @@ h3 {    /* Czcionka firmowa */
   background-color: #646464;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+#tier-title {
+  padding: 0px;
+  padding-top: 7px;
+  transition: all 0.1s ease;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  letter-spacing: 0.6vw;
+  text-align: center;
+  color: rgba(199,41,21,0.8);
+  font-size: 1.5vw;
+  height:40%;
+}
 .tier-level {
+  height: 60%;
   overflow: hidden;
   text-shadow: 0px -5px 20px rgba(250, 100, 0, 0.6);
-  width: 50%;
-  padding-top: 5px;
+  width: 25vw;
+  padding: 0px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
   letter-spacing: 0.4vw;
@@ -495,7 +512,7 @@ h3 {    /* Czcionka firmowa */
 
 
   .timer {
-    height: 10%;
+    height: 8%;
     background-color: #101010;
   }
     #timer {
@@ -507,7 +524,7 @@ h3 {    /* Czcionka firmowa */
       font-size: 3vw;
       background-color: #2c2c2c;
       padding: 10px;
-      padding-top: 15px;
+      padding-top: 5px;
     }
 
   .prize {
@@ -536,7 +553,7 @@ h3 {    /* Czcionka firmowa */
     animation-name: spin;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
-    margin-top:12%;
+    margin-top:11.5%;
     margin-left:18%;
     border-radius:30%;
     position: absolute;
@@ -948,7 +965,7 @@ h3 {    /* Czcionka firmowa */
   </div>
   <div class="tier-wrapper">
     <button class="tier-button" id="left-tier-button"></button>
-    <div class="tier-level" id="tier-level"></div>
+    <div class="tier-container"><div id="tier-title"> TIER </div><div class="tier-level" id="tier-level"></div></div>
     <button class="tier-button" id="right-tier-button"></button>
   </div>
   <div class="timer">
