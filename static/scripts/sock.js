@@ -112,7 +112,7 @@ function runTimer(endTime) {
             timerDiv.text("TO END " + remainingTime.minutes() + " M " + remainingTime.seconds() + " s");
             
             // Update animation duration based on the initial value
-            spin.style.setProperty("animation-duration", animationDuration);
+            
             
 
             if (remainingSeconds === 11) {
@@ -218,7 +218,99 @@ function autoButton() {
 }
 
 
+const levels = [
+  {
+    level: "TIER I",
+    leftValue: "1 >",
+    rightValue: "< 10",
+  },
+  {
+    level: "TIER II",
+    leftValue: "11 >",
+    rightValue: "< 100",
+  },
+  {
+    level: "TIER III",
+    leftValue: "101 >",
+    rightValue: "< 1k",
+  },
+  {
+    level: "TIER IV",
+    leftValue: "1k+1 >",
+    rightValue: "< 10k",
+  },
+  {
+    level: "TIER V",
+    leftValue: "10k+1 >",
+    rightValue: "< 100k",
+  },
+  {
+    level: "TIER VI",
+    leftValue: "100k+1 >",
+    rightValue: "< 1m",
+  },
+  {
+    level: "TIER VII",
+    leftValue: "1m+1>",
+    rightValue: "< Unlimited",
+  },
+];
 
+const LEVEL_LOCAL_STORAGE_KEY = "selectedTierLevel";
+const tierLevelElement = document.getElementById("tier-level");
+const leftTierButton = document.getElementById("left-tier-button");
+const rightTierButton = document.getElementById("right-tier-button");
+
+let currentLevelIndex = Number(localStorage.getItem(LEVEL_LOCAL_STORAGE_KEY)) || 0;
+updateUIForCurrentLevel();
+
+// DOWN
+leftTierButton.addEventListener("click", () => {
+  if (currentLevelIndex > 0) {
+    currentLevelIndex--;
+    updateUIForCurrentLevel();
+    localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
+  }
+});
+
+// UP
+rightTierButton.addEventListener("click", () => {
+  if (currentLevelIndex < levels.length - 1) {
+    currentLevelIndex++;
+    updateUIForCurrentLevel();
+    localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
+  }
+});
+
+// COMMA
+document.addEventListener("keydown", (event) => {
+  if (event.key === ",") {
+    if (currentLevelIndex > 0) {
+      currentLevelIndex--;
+      updateUIForCurrentLevel();
+      localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
+    }
+  }
+});
+
+// PERIOD
+document.addEventListener("keydown", (event) => {
+  if (event.key === ".") {
+    if (currentLevelIndex < levels.length - 1) {
+      currentLevelIndex++;
+      updateUIForCurrentLevel();
+      localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
+    }
+  }
+});
+
+
+function updateUIForCurrentLevel() {
+  const currentLevel = levels[currentLevelIndex];
+  tierLevelElement.textContent = currentLevel.level;
+  leftTierButton.textContent = currentLevel.leftValue;
+  rightTierButton.textContent = currentLevel.rightValue;
+}
 
 
 function buildFrontend() {

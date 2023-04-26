@@ -1,33 +1,14 @@
-    <button id="mutebutton">
-    <img src="static/imag/speakerx.svg"/>
-    </button>
+POTS LIST
+nr + RANGE + NAME + ALTERNATIVE NAME + (A)
+1. 1-10 TINY SPARK 0.5USD
+2. 11-100 SMALL PHOENIX 5USD
+3. 101-1.000 MEDIUM GOLIATH 50USD
+4. 1.001-10.000 LARGE COLOSSUS 500USD
+5. 10.001-100.000 HUGE BEHEMOTH 5KUSD
+6. 100.001-1.000.000 ULTRA BLACK MAELSTORM 50KUSD
+7. 1.000.001-(INFINITY) VOID BLACK HOLE 
 
-    var audioEnabled = false;
-var audioToggle = document.querySelector("#mutebutton");
-var speakerOnImg = "static/imag/speaker.svg";
-var speakerOffImg = "static/imag/speakerx.svg";
-var speakerImg = document.createElement("img");
-
-function toggleAudio() {
-  audioEnabled = !audioEnabled;
-  if (audioEnabled) {
-    beep.volume = 1;
-    beepx.volume = 1;
-    last10.volume = 1;
-    last30.volume = 1;
-    last1.volume = 1;
-    speakerImg.src = speakerOnImg;
-  } else {
-    beep.volume = 0;
-    beepx.volume = 0;
-    last10.volume = 0;
-    last30.volume = 0;
-    last1.volume = 0;
-    beep.play();
-    speakerImg.src = speakerOffImg;
-  }
-  audioToggle.appendChild(speakerImg);
-}
-
-audioToggle.addEventListener("click", toggleAudio);
+(A) = ILE TO SOSU TAK PLUS MINUS PRZY MAX BECIE
+ZGODNIE Z TYM ROZPISEM KAZDY BET 1 V 1 NIE MOZE WYNIESC WIECEJ NIZ 90% PRZEWAGI
+MOZNA UZYWAC JEDNEGO ID, TYLE ILE ZOSTANIE WYSLANE NA TAKIEGO BETA WCHODZI USER
 

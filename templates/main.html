@@ -9,7 +9,6 @@
 /* LISTA KOLOROW
 ten ciemny fajny background:rgb(22, 26, 30)  #161A1E
 czcionka: #bebebe;
-cash green: #195905 
 yellow(button): rgb(252, 213, 53)  #FCD535
 yellow(pressed): rgb(240, 185, 11) + opacity:0.9;
 yellow(royal): rgb(240, 185, 11)  #F0B90B
@@ -73,15 +72,15 @@ h3 {    /* Czcionka firmowa */
   border: 1px solid #0e0e0e;
   background-color: #646464;
 }
-.xxxxxx {
+#xxxxxx {
   cursor: default;
   text-decoration: underline;
-  left: 26vw;
-  top: 7vw;
+  left: 32vw;
+  top: 16vw;
   position: absolute;
-  z-index:1;
+  z-index:-0;
   color:rgba(212,212,212,0.00001);
-  font-size: 40vw; /* 66vh */
+  font-size: 30vw; /* 66vh */
   text-shadow: 0px 0px 500px rgba(212,212,212,0.7);
 }
     /* Przyciemnienie strony */
@@ -449,6 +448,51 @@ h3 {    /* Czcionka firmowa */
         cursor: help;
         font-size: 3vw;
       }
+  .tier {
+    border-top: 3px solid #646464;
+    border-bottom: 3px solid #646464;
+    height:10%;
+  }
+
+  .tier-wrapper {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tier-button {
+  transition: all 0.1s ease;
+  text-shadow: 0px 0px 8px rgba(200, 255, 200, 0.5);
+  height: 50%;
+  display: block;
+  width:20%;
+  padding: 5px 10px;
+  background-color: #2c2c2c;
+  color: #6aa000;
+  border: none;
+  border-radius: 3px;
+  font-size: 1.5vw;
+  cursor: pointer;
+}
+.tier-button:hover {
+  background-color: #646464;
+}
+
+
+.tier-level {
+  overflow: hidden;
+  text-shadow: 0px -5px 20px rgba(250, 100, 0, 0.6);
+  width: 50%;
+  padding-top: 5px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  letter-spacing: 0.4vw;
+  text-align: center;
+  font-size: 3.5vw;
+  color: rgba(199,41,21,0.8);
+}
+
 
   .timer {
     height: 10%;
@@ -463,12 +507,12 @@ h3 {    /* Czcionka firmowa */
       font-size: 3vw;
       background-color: #2c2c2c;
       padding: 10px;
-      padding-top: 20px;
+      padding-top: 15px;
     }
 
   .prize {
     animation: blink 3s ease-in-out infinite;
-    margin-top: 26vh;
+    margin-top: 30%;
     height:20vh;
     background-color: none;
     padding:0px;
@@ -489,12 +533,11 @@ h3 {    /* Czcionka firmowa */
 
   #spin {
     z-index: 32;
-    
     animation-name: spin;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
-    margin-top:25vh;
-    margin-left:18vw;
+    margin-top:12%;
+    margin-left:18%;
     border-radius:30%;
     position: absolute;
     height: 200px;
@@ -770,8 +813,8 @@ h3 {    /* Czcionka firmowa */
   }
   }
 @keyframes leftjump {
-  from {margin-left:-15vw;opacity:0;}
-  to {margin-left:6vw;opacity:1;}
+  from {margin-left:-100%;opacity:0;}
+  to {margin-left:5.4%;opacity:1;}
 }
 
   .infobox {
@@ -789,7 +832,7 @@ h3 {    /* Czcionka firmowa */
     animation-direction: alternate; /* kierunek animacji */
     animation-fill-mode: both; /* co się dzieje po animacji */
     transition: all 1.5s ease;
-    margin-left: -15vw;
+    margin-left: -100%;
     display: none;
   }
   #qrcode.hidden {
@@ -903,12 +946,12 @@ h3 {    /* Czcionka firmowa */
     <div class="numberr">#MEMO SPIN v3
     </div>
   </div>
+  <div class="tier-wrapper">
+    <button class="tier-button" id="left-tier-button"></button>
+    <div class="tier-level" id="tier-level"></div>
+    <button class="tier-button" id="right-tier-button"></button>
+  </div>
   <div class="timer">
-    <div class="tooltip">
-      <span class="tooltiptext">
-      <h1>Time to drawing/Time to next game</h1>
-      </span>
-    </div>
   </div>
   <div id="spin">
   </div>
@@ -916,7 +959,7 @@ h3 {    /* Czcionka firmowa */
     <div id="prize">
     </div>
   </div>
-  <div class="xxxxxx">|X|
+  <div id="xxxxxx">|X|
   </div>
 </div>
 
@@ -930,7 +973,9 @@ h3 {    /* Czcionka firmowa */
     <img src="static/imag/speakerx.svg"/>
     </button>
     <h1>PANEL LOGOWANIA/BET s2</h1>
-    <h1>GUNGU GINGGA WEZ SE PISZ NA ELEMENTACH CO CHCES ZMIENIC I SUGESTIE</h1>
+    <h1>Klawisz Tab otwiera menu QR</h1>
+    <h1>Klawisz < zmniejsza tier</h1>
+    <h1>Klawisz > zwieksza tier</h1>
   </div>
   <div class="user">
     <div class="usertitle">
@@ -1018,6 +1063,76 @@ autoButton();
 </script>
 
 <script>
+const levels = [
+  {
+    level: "TIER I",
+    leftValue: "1 >",
+    rightValue: "< 10",
+  },
+  {
+    level: "TIER II",
+    leftValue: "11 >",
+    rightValue: "< 100",
+  },
+  {
+    level: "TIER III",
+    leftValue: "101 >",
+    rightValue: "< 1k",
+  },
+  {
+    level: "TIER IV",
+    leftValue: "1k+1 >",
+    rightValue: "< 10k",
+  },
+  {
+    level: "TIER V",
+    leftValue: "10k+1 >",
+    rightValue: "< 100k",
+  },
+  {
+    level: "TIER VI",
+    leftValue: "100k+1 >",
+    rightValue: "< 1m",
+  },
+  {
+    level: "TIER VII",
+    leftValue: "1m+1>",
+    rightValue: "< Unlimited",
+  },
+];
+
+const LEVEL_LOCAL_STORAGE_KEY = "selectedTierLevel";
+const tierLevelElement = document.getElementById("tier-level");
+const leftTierButton = document.getElementById("left-tier-button");
+const rightTierButton = document.getElementById("right-tier-button");
+
+let currentLevelIndex = Number(localStorage.getItem(LEVEL_LOCAL_STORAGE_KEY)) || 0;
+updateUIForCurrentLevel();
+
+// DOWN
+leftTierButton.addEventListener("click", () => {
+  if (currentLevelIndex > 0) {
+    currentLevelIndex--;
+    updateUIForCurrentLevel();
+    localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
+  }
+});
+
+// UP
+rightTierButton.addEventListener("click", () => {
+  if (currentLevelIndex < levels.length - 1) {
+    currentLevelIndex++;
+    updateUIForCurrentLevel();
+    localStorage.setItem(LEVEL_LOCAL_STORAGE_KEY, currentLevelIndex.toString());
+  }
+});
+
+function updateUIForCurrentLevel() {
+  const currentLevel = levels[currentLevelIndex];
+  tierLevelElement.textContent = currentLevel.level;
+  leftTierButton.textContent = currentLevel.leftValue;
+  rightTierButton.textContent = currentLevel.rightValue;
+}
 
 </script>
 
